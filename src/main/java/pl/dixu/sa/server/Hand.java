@@ -1,9 +1,13 @@
 package pl.dixu.sa.server;
-
-import pl.dixu.sa.server.cards.general.Card;
-
-import java.util.TreeSet;
+import pl.dixu.sa.server.cards.general.EventCard;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hand {
-    private TreeSet<Card> cards;
+    private List<EventCard> cards = new ArrayList<>();
+
+   public List<EventCard> getCards() {
+        return cards;
+    }
+
 }

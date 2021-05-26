@@ -11,4 +11,12 @@ public class Shop {
         this.generators = generators;
         this.defenders = defenders;
     }
+
+    public CharacterCard peekFirstGenerator() {
+        return generators.peekFirst();
+    }
+
+    public CharacterCard peekFirstDefender() {
+        return defenders.peekFirst();
+    }
 }

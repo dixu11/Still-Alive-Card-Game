@@ -3,6 +3,8 @@ package pl.dixu.sa.server;
 import pl.dixu.sa.server.cards.general.CharacterCard;
 import pl.dixu.sa.server.cards.general.EventCard;
 
+import java.util.List;
+
 public class Player {
 
     private int energy = 0;
@@ -19,4 +21,17 @@ public class Player {
   public   CharacterCard getGeneral() {
         return general;
     }
+
+    public List<EventCard> getHand(){
+        return hand.getCards();
+    }
+
+    public int discardPileSize() {
+        return drawPile.size();
+    }
+
+    public int drawPileSize() {
+        return discardPile.size();
+    }
+
 }

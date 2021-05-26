@@ -24,4 +24,12 @@ public class Deck<T extends Card> {
     T pollCard() {
         return cards.poll();
     }
+
+    T peekFirst() {
+        return cards.peek();
+    }
+
+    int size() {
+        return cards.size();
+    }
 }

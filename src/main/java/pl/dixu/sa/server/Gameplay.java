@@ -2,6 +2,7 @@ package pl.dixu.sa.server;
 
 import pl.dixu.sa.server.cards.general.CharacterCard;
 import pl.dixu.sa.server.cards.general.EventCard;
+import pl.dixu.sa.server.cards.view.GameDTO;
 
 public class Gameplay {
 
@@ -39,5 +40,9 @@ public class Gameplay {
     public void spawnCharacter(CharacterCard character) {
         game.spawnCharacter(character);
         presenter.showSpawnCharacter(character.toView());
+    }
+
+    GameDTO getGame() {
+        return game.toDTO();
     }
 }

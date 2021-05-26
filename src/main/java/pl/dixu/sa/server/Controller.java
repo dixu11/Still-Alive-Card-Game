@@ -1,15 +1,17 @@
 package pl.dixu.sa.server;
 
-import pl.dixu.sa.server.cards.general.Card;
+import pl.dixu.sa.server.cards.view.GameDTO;
 
-public interface Controller {
+public class Controller {
 
-    boolean playCard(Card card);
-    void buyCard();
-    void upgradeCard();
-    void drawCard();
-    void selectTarget();
-    void endTurn();
+    private Gameplay gameplay;
 
-    void playGeneral();
+    public Controller(Gameplay gameplay) {
+        this.gameplay = gameplay;
+    }
+
+    public GameDTO getGameState() {
+        return gameplay.getGame();
+    }
+
 }

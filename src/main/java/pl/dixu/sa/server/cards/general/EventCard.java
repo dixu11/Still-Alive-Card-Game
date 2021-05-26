@@ -44,7 +44,8 @@ public class EventCard extends Card{
     public CardView toView() {
         return super.toView()
                 .addAttribute("enemy", String.valueOf(enemy))
-                .addAttribute("cost", String.valueOf(cost));
+                .addAttribute("cost", String.valueOf(cost))
+                .addAttribute("event", "true");
     }
 
    public void setEnemy(boolean enemy) {

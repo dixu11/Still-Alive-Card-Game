@@ -52,7 +52,8 @@ public class CharacterCard extends Card{
                 .addAttribute("actualHp", String.valueOf(actualHp))
                 .addAttribute("attack", String.valueOf(attack))
                 .addAttribute("block", String.valueOf(block))
-                .addAttribute("area", String.valueOf(area));
+                .addAttribute("area", String.valueOf(area))
+                .addAttribute("event", "false");
     }
 
     @Override
@@ -80,5 +81,9 @@ public class CharacterCard extends Card{
                 ", triggers=" + triggers +
                 ", levels=" + levels +
                 '}';
+    }
+
+   public Area getArea() {
+       return area;
     }
 }
