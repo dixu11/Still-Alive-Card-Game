@@ -36,7 +36,7 @@ public class ConsoleGameView extends GameView {
         EMPTY_SLOT = new CardView("", "") {
             @Override
             public List<String> signatureView() {
-                return Stream.generate(() -> "#".repeat(CHARACTERS))
+                return Stream.generate(() -> " ".repeat(CHARACTERS))
                         .limit(SIGNATURE_LINES)
                         .collect(Collectors.toList());
             }
