@@ -16,26 +16,26 @@ public class ConsolePresenter extends Presenter {
     public void playGeneral(CardView general) {
         printNoLine("Naciśnij enter aby rozpocząć");
         waitForEnter();
+        displayGame();
         print("Zagrywasz kartę generała:");
         general.consoleDisplay();
         waitForEnter();
-        displayGame();
     }
 
     @Override
     public void showEnemyEvent(CardView event) {
+        displayGame();
         print((event.isEnemy() ? "Wróg zagrywa " : "Zagrywasz ") + "kartę ");
         event.consoleDisplay();
         waitForEnter();
-        displayGame();
     }
 
     @Override
     public void showSpawnCharacter(CardView character) {
+        displayGame();
         print("Na stół trafia:");
         character.consoleDisplay();
         waitForEnter();
-        displayGame();
     }
 
     private void displayGame() {
