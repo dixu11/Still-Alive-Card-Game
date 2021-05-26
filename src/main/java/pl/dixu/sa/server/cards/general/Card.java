@@ -1,5 +1,7 @@
 package pl.dixu.sa.server.cards.general;
 
+import pl.dixu.sa.server.cards.view.CardView;
+
 public class Card {
 
     private String name;

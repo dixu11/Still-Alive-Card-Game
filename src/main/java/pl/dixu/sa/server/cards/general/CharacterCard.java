@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import pl.dixu.sa.server.Area;
 import pl.dixu.sa.server.Level;
+import pl.dixu.sa.server.cards.view.CardView;
 import pl.dixu.sa.server.effect.Effect;
 
 import java.util.*;

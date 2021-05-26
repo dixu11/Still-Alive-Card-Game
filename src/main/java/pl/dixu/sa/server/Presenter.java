@@ -1,6 +1,6 @@
 package pl.dixu.sa.server;
 
-import pl.dixu.sa.server.cards.general.CardView;
+import pl.dixu.sa.server.cards.view.CardView;
 
 public abstract class Presenter {
 

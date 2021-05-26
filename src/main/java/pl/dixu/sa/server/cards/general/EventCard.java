@@ -1,6 +1,7 @@
 package pl.dixu.sa.server.cards.general;
 
 import pl.dixu.sa.server.Gameplay;
+import pl.dixu.sa.server.cards.view.CardView;
 import pl.dixu.sa.server.effect.Effect;
 
 import java.util.List;

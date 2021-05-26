@@ -1,4 +1,4 @@
-package pl.dixu.sa.server.cards.general;
+package pl.dixu.sa.server.cards.view;
 
 import java.util.List;
 import java.util.Map;

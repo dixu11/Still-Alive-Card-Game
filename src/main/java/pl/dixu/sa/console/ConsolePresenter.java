@@ -1,7 +1,7 @@
 package pl.dixu.sa.console;
 
 import pl.dixu.sa.server.Presenter;
-import pl.dixu.sa.server.cards.general.CardView;
+import pl.dixu.sa.server.cards.view.CardView;
 
 import java.util.Scanner;
 
@@ -30,6 +30,10 @@ public class ConsolePresenter extends Presenter {
         print("Na stół trafia:");
         character.consoleDisplay();
         waitForEnter();
+    }
+
+    private void displayGame() {
+        //todo
     }
 
     private void print(String text) {
