@@ -7,7 +7,8 @@ import java.util.TreeMap;
 
 public class CardView {
 
-    public static final int CHARACTERS = 10;
+    public static final int CHARACTERS = 12;
+    public static final int SIGNATURE_LINES = 3;
 
     private String name;
     private String dsc;
