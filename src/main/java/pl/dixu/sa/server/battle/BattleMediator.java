@@ -41,7 +41,7 @@ public class BattleMediator {
     }
 
     public void playCard(EventCard eventCard, Enemy enemy) {
-        eventCard.execute();
+        eventCard.executeEffect();
         client.playCard(eventCard, enemy);
     }
 

@@ -2,16 +2,14 @@ package pl.dixu.sa.server.cards.general;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import pl.dixu.sa.server.cards.effect.EffectType;
-import pl.dixu.sa.server.command.CommandClient;
-import pl.dixu.sa.server.view.CardView;
-import pl.dixu.sa.server.cards.effect.BattleEffect;
+import pl.dixu.sa.server.view.CardAttributes;
+import pl.dixu.sa.server.view.Viewable;
 
 import java.util.*;
 
 @Builder
 @AllArgsConstructor //for lombok builder
-public class CharacterCard extends Card{
+public class CharacterCard extends Card implements Viewable {
 
     private int maxHp=0;
     private int actualHp=0;
@@ -19,14 +17,12 @@ public class CharacterCard extends Card{
     private int block=0;
     private int attack=0;
     private Area area;
-    private List<BattleEffect> triggers;
     private Queue<Level> levels;
 
-    public CharacterCard(int lvl, Area area, List<BattleEffect> triggers, Queue<Level> levels, String name) {
+    public CharacterCard(int lvl, Area area, Queue<Level> levels, String name) {
         super(name);
         this.lvl = lvl;
         this.area = area;
-        this.triggers = triggers;
         this.levels = levels;
     }
 
@@ -45,8 +41,8 @@ public class CharacterCard extends Card{
     }
 
     @Override
-    public CardView toView() {
-        return super.toView()
+    public CardAttributes toAttributes() {
+        return super.toAttributes()
                 .addAttribute("lvl", String.valueOf(lvl))
                 .addAttribute("maxHp", String.valueOf(maxHp))
                 .addAttribute("actualHp", String.valueOf(actualHp))
@@ -78,7 +74,6 @@ public class CharacterCard extends Card{
                 ", block=" + block +
                 ", attack=" + attack +
                 ", area=" + area +
-                ", triggers=" + triggers +
                 ", levels=" + levels +
                 '}';
     }
@@ -87,11 +82,7 @@ public class CharacterCard extends Card{
        return area;
     }
 
-    public void triggerEffect(EffectType type) {
-        triggers.stream()
-                .filter(e -> e.getType() == type)
-                .forEach(e-> e.execute());
-    }
+
 
     public int getLvl() {
         return lvl;

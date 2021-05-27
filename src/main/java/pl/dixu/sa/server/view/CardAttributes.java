@@ -1,26 +1,24 @@
 package pl.dixu.sa.server.view;
 
+import pl.dixu.sa.server.cards.effect.BattleEffect;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CardView {
+public class CardAttributes {
 
     public static final int CHARACTERS = 12;
     public static final int SIGNATURE_LINES = 3;
 
-    private String name;
-    private String dsc;
     private Map<String, String> attributes = new TreeMap<>();
 
-    public CardView(String name, String dsc) {
-        this.name = name;
-        this.dsc = dsc;
+    public CardAttributes() {
         attributes.put("enemy", "false");
     }
 
-    public CardView addAttribute(String name, String value) {
+    public CardAttributes addAttribute(String name, String value) {
         attributes.put(name, value);
         return this;
     }
@@ -34,7 +32,7 @@ public class CardView {
 
     public List<String> signatureView() {
         List<String> lines = new ArrayList<>();
-        lines.add(name);
+        lines.add(attributes.get("name"));
         for (String attribute : attributes.keySet()) {
             if (dontShowThisAttribute(attribute)) {
                 continue;
@@ -48,7 +46,7 @@ public class CardView {
     }
 
     public boolean dontShowThisAttribute(String attribute) {
-        List<String> dontShow = List.of("area", "enemy", "event", "maxHp", "actualHp");
+        List<String> dontShow = List.of("area", "enemy", "event", "maxHp", "actualHp","name");
         List<String> dontShowIf0 = List.of("attack", "block","lvl");
         List<String> dontShowIfEnemy = List.of("cost");
         return dontShow.contains(attribute) ||
@@ -78,5 +76,7 @@ public class CardView {
         return Boolean.parseBoolean(attributes.get("event"));
     }
 
-
+    public void add(Viewable viewable) {
+        attributes.putAll(viewable.toAttributes().attributes);
+    }
 }

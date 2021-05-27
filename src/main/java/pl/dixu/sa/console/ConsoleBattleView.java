@@ -1,19 +1,19 @@
 package pl.dixu.sa.console;
 
-import pl.dixu.sa.server.view.CardView;
+import pl.dixu.sa.server.view.CardAttributes;
 import pl.dixu.sa.server.view.BattleView;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static pl.dixu.sa.server.view.CardView.*;
+import static pl.dixu.sa.server.view.CardAttributes.*;
 
 public class ConsoleBattleView extends BattleView {
 
-    private CardView NO_SLOT;
-    private CardView EMPTY_SLOT;
-    private CardView ENEMIES_LEFT;
+    private CardAttributes NO_SLOT;
+    private CardAttributes EMPTY_SLOT;
+    private CardAttributes ENEMIES_LEFT;
     private final String EMPTY_TITLE;
     private static final int COLUMNS = 6;
     private static String EMPTY_CHARACTER= ".";
@@ -25,7 +25,7 @@ public class ConsoleBattleView extends BattleView {
 
     private void initSlotsSignature() {
         //todo refactor
-        NO_SLOT = new CardView("", "") {
+        NO_SLOT = new CardAttributes() {
             @Override
             public List<String> signatureView() {
                 return Stream.generate(() -> EMPTY_CHARACTER.repeat(CHARACTERS))
@@ -33,7 +33,7 @@ public class ConsoleBattleView extends BattleView {
                         .collect(Collectors.toList());
             }
         };
-        EMPTY_SLOT = new CardView("", "") {
+        EMPTY_SLOT = new CardAttributes() {
             @Override
             public List<String> signatureView() {
                 return Stream.generate(() -> " ".repeat(CHARACTERS))
@@ -42,7 +42,7 @@ public class ConsoleBattleView extends BattleView {
             }
         };
 
-        ENEMIES_LEFT = new CardView("", "") {
+        ENEMIES_LEFT = new CardAttributes() {
             @Override
             public List<String> signatureView() {
                return List.of("6"); //todo refactor
@@ -82,7 +82,7 @@ public class ConsoleBattleView extends BattleView {
         System.out.println();
     }
 
-    public void printSignatures( List<CardView> views) {
+    public void printSignatures( List<CardAttributes> views) {
         List<String> signature;
         for (int row = 0; row < SIGNATURE_LINES; row++) {
             System.out.print(EMPTY_CHARACTER+" ");

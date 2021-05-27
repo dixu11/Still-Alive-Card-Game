@@ -5,7 +5,7 @@ import pl.dixu.sa.server.cards.factory.EventCardFactory;
 import pl.dixu.sa.server.cards.general.Area;
 import pl.dixu.sa.server.cards.general.CharacterCard;
 import pl.dixu.sa.server.cards.general.EventCard;
-import pl.dixu.sa.server.view.CardView;
+import pl.dixu.sa.server.view.CardAttributes;
 import pl.dixu.sa.server.view.BattleDTO;
 import pl.dixu.sa.server.command.CommandClient;
 
@@ -43,29 +43,29 @@ public class Battle {
 
    public BattleDTO toDTO() {
         return BattleDTO.builder()
-                .shopCard1(shop.peekFirstGenerator().toView())
-                .shopCard2(shop.peekFirstDefender().toView())
+                .shopCard1(shop.peekFirstGenerator().toAttributes())
+                .shopCard2(shop.peekFirstDefender().toAttributes())
                 .hand(toViews2(human.getHand()))
                 .discardPile(human.discardPileSize())
                 .drawPile(human.drawPileSize())
-                .general(human.getGeneral().toView())
+                .general(human.getGeneral().toAttributes())
                 .defenders(toViews(table.getByArea(Area.DEFENDERS)))
                 .generators(toViews(table.getByArea(Area.GENERATORS)))
                 .enemies(toViews(table.getByArea(Area.ENEMIES)))
-                .enemyDraw(enemy.getDeck().peekFirst().toView())
+                .enemyDraw(enemy.getDeck().peekFirst().toAttributes())
                 .build();
     }
     //todo pora na powtórkę z generyków!
 
-    List<CardView> toViews(List<CharacterCard> cards) {
+    List<CardAttributes> toViews(List<CharacterCard> cards) {
         return cards.stream()
-                .map(c -> c.toView())
+                .map(c -> c.toAttributes())
                 .collect(Collectors.toList());
     }
 
-    List<CardView> toViews2(List<EventCard> cards) {
+    List<CardAttributes> toViews2(List<EventCard> cards) {
         return cards.stream()
-                .map(c -> c.toView())
+                .map(c -> c.toAttributes())
                 .collect(Collectors.toList());
     }
 

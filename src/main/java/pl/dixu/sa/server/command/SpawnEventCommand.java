@@ -14,7 +14,7 @@ public class SpawnEventCommand implements Command {
 
     @Override
     public void executePresentation() {
-        presenter.spawn(character.toView());
+        presenter.spawn(character.toAttributes());
     }
 
    public void prepare(CharacterCard character) {

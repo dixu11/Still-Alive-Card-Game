@@ -1,23 +1,17 @@
 package pl.dixu.sa.server.cards.general;
 
-import pl.dixu.sa.server.view.CardView;
-import pl.dixu.sa.server.command.CommandClient;
-import pl.dixu.sa.server.cards.effect.BattleEffect;
-
-import java.util.List;
+import pl.dixu.sa.server.view.CardAttributes;
 import java.util.Objects;
 
 public class EventCard extends Card{
 
     private int cost;
-    private List<BattleEffect> playBattleEffects;
     private boolean enemy;
     //value
 
-    public EventCard(int cost, List<BattleEffect> playBattleEffects, String name) {
+    public EventCard(int cost,  String name) {
         super(name);
         this.cost = cost;
-        this.playBattleEffects = playBattleEffects;
     }
 
     @Override
@@ -33,15 +27,9 @@ public class EventCard extends Card{
         return Objects.hash(cost);
     }
 
-    public void execute() {
-        for (BattleEffect playBattleEffect : playBattleEffects) {
-            playBattleEffect.execute();
-        }
-    }
-
     @Override
-    public CardView toView() {
-        return super.toView()
+    public CardAttributes toAttributes() {
+        return super.toAttributes()
                 .addAttribute("enemy", String.valueOf(enemy))
                 .addAttribute("cost", String.valueOf(cost))
                 .addAttribute("event", "true");

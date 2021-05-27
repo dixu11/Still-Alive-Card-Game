@@ -34,6 +34,6 @@ public class Table extends BattleComponent{
 
     public void executeEffectsByCategory(EffectType type) {
         playedCards.stream()
-                .forEach(c -> c.triggerEffect(type));
+                .forEach(c -> c.executeEffect(type));
     }
 }

@@ -1,7 +1,7 @@
 package pl.dixu.sa.console;
 
 import pl.dixu.sa.server.command.PlayCardCommand;
-import pl.dixu.sa.server.view.CardView;
+import pl.dixu.sa.server.view.CardAttributes;
 import pl.dixu.sa.server.view.BattlePresenter;
 
 import java.util.Scanner;
@@ -12,7 +12,7 @@ public class ConsoleBattlePresenter extends BattlePresenter {
 
     private ConsoleBattleView consoleGameView = new ConsoleBattleView();
     @Override
-    public void spawn(CardView character) {
+    public void spawn(CardAttributes character) {
         displayGame();
         print("Na stół trafia:");
         character.consoleDisplay();
@@ -58,7 +58,7 @@ public class ConsoleBattlePresenter extends BattlePresenter {
     }
 
     //todo refactor
-    public void playGeneral(CardView general) {
+    public void playGeneral(CardAttributes general) {
         printNoLine("Naciśnij enter aby rozpocząć");
         waitForEnter();
         displayGame();
@@ -66,7 +66,7 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         general.consoleDisplay();
         waitForEnter();
     }
-    public void showEnemyEvent(CardView event) {
+    public void showEnemyEvent(CardAttributes event) {
         displayGame();
         print((event.isEnemy() ? "Wróg zagrywa " : "Zagrywasz ") + "kartę ");
         event.consoleDisplay();

@@ -8,7 +8,7 @@ public abstract class BattlePresenter {
 
     protected Battle battle;
 
-    public abstract void spawn(CardView character);
+    public abstract void spawn(CardAttributes character);
 
     public void startBattle(Battle battle) {
         this.battle = battle;

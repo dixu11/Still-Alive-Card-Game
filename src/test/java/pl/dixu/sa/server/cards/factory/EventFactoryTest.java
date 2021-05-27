@@ -29,10 +29,10 @@ class EventFactoryTest {
     }
 
     private EventCard attackCard() {
-        return new EventCard(1,new ArrayList<>(),"Attack");
+        return new EventCard(1,"Attack");
     }
 
     private EventCard spawnEnemyCard() {
-        return new EventCard(0,new ArrayList<>(),"Enemy");
+        return new EventCard(0,"Enemy");
     }
 }

@@ -23,13 +23,11 @@ public class CharacterCardFactory {
     }
 
     public CharacterCard createGeneral() {
-        List<BattleEffect> triggers = new ArrayList<>();
-        triggers.add(new GenerateHeroEffect());
         Queue<Level> levels = new LinkedList<>();
         levels.add(new Level(0,10,0));
-        CharacterCard characterCard = new CharacterCard(0, Area.GENERAL, triggers, levels, "General");
+        CharacterCard characterCard = new CharacterCard(0, Area.GENERAL, levels, "General");
+        characterCard.addEffect(new GenerateHeroEffect());
         characterCard.levelUp();
-
         return characterCard;
     }
 
@@ -50,38 +48,35 @@ public class CharacterCardFactory {
     }
 
     public CharacterCard createGenerator() {
-        List<BattleEffect> triggers = new ArrayList<>();
         Queue<Level> levels = new LinkedList<>();
         levels.add(new Level(1,0,0));
         levels.add(new Level(2,0,0));
         levels.add(new Level(3,0,0));
         //add heal to max effect
-        CharacterCard characterCard = new CharacterCard(0, Area.GENERATORS, triggers, levels,"Generator");
-        triggers.add(new GeneratorStandardEffect(characterCard));
+        CharacterCard characterCard = new CharacterCard(0, Area.GENERATORS, levels,"Generator");
+        characterCard.addEffect(new GeneratorStandardEffect(characterCard));
         characterCard.levelUp();
         return characterCard;
     }
 
     public CharacterCard createDefender() {
-        List<BattleEffect> triggers = new ArrayList<>();
         Queue<Level> levels = new LinkedList<>();
         levels.add(new Level(1,6,0));
         levels.add(new Level(2,3,0));
         levels.add(new Level(3,3,0));
         //add heal to max effect
-        CharacterCard characterCard = new CharacterCard(0, Area.DEFENDERS, triggers, levels,"Defender");
+        CharacterCard characterCard = new CharacterCard(0, Area.DEFENDERS,  levels,"Defender");
         characterCard.levelUp();
         return characterCard;
     }
 
     private CharacterCard createBasicEnemy() {
-        List<BattleEffect> triggers = new ArrayList<>();
         Queue<Level> levels = new LinkedList<>();
         levels.add(new Level(1,5,3));
         levels.add(new Level(2,2,2));
         levels.add(new Level(3,2,2));
         levels.add(new Level(4,6,6));
-        return new CharacterCard(0,Area.ENEMIES,triggers,levels,"Enemy");
+        return new CharacterCard(0,Area.ENEMIES,levels,"Enemy");
     }
 
 }

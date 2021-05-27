@@ -41,34 +41,32 @@ public class EventCardFactory {
     }
 
     public EventCard createAttack() {
-        List<BattleEffect> battleEffects = new ArrayList<>();
-        return new EventCard(1, battleEffects, "Attack");
+        return new EventCard(1,  "Attack");
     }
 
     public EventCard createInvest() {
         List<BattleEffect> battleEffects = new ArrayList<>();
-        return new EventCard(0, battleEffects, "Invest");
+        return new EventCard(0,  "Invest");
     }
 
     public EventCard createSupport() {
         List<BattleEffect> battleEffects = new ArrayList<>();
-        return new EventCard(0, battleEffects,"Support");
+        return new EventCard(0, "Support");
     }
 
     public EventCard createCharge() {
         List<BattleEffect> battleEffects = new ArrayList<>();
-        return new EventCard(2, battleEffects, "Charge");
+        return new EventCard(2,  "Charge");
     }
 
     public EventCard createDefend() {
         List<BattleEffect> battleEffects = new ArrayList<>();
-        return new EventCard(1, battleEffects,"Defend");
+        return new EventCard(1, "Defend");
     }
 
     public EventCard createSpawnEnemyCard() {
-        List<BattleEffect> battleEffects = new ArrayList<>();
-        battleEffects.add(new SpawnCharacterEffect(characterCardFactory.createBasicEnemy(1)));
-        EventCard eventCard = new EventCard(0, battleEffects, "Spawn Enemy");
+        EventCard eventCard = new EventCard(0,  "Spawn Enemy");
+        eventCard.addEffect(new SpawnCharacterEffect(characterCardFactory.createBasicEnemy(1)));
         eventCard.setEnemy(true);
         return eventCard;
     }
