@@ -6,6 +6,7 @@ public abstract class BattleEffect extends BattleComponent {
 
     private EffectType type;
 
+
     BattleEffect(EffectType type) {
         this.type = type;
     }

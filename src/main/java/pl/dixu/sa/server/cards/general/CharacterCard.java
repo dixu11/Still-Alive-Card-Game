@@ -87,9 +87,13 @@ public class CharacterCard extends Card{
        return area;
     }
 
-    public void triggerEffect(EffectType type, CommandClient client) {
+    public void triggerEffect(EffectType type) {
         triggers.stream()
                 .filter(e -> e.getType() == type)
                 .forEach(e-> e.execute());
+    }
+
+    public int getLvl() {
+        return lvl;
     }
 }

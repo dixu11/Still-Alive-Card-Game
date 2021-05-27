@@ -20,6 +20,7 @@ public class Battle {
     private Table table;
     private Enemy enemy;
     private BattleMediator battleMediator;
+    private int turn = 1;
 
     public Battle(CommandClient client) {
         CharacterCardFactory characterCardFactory = new CharacterCardFactory();
@@ -82,6 +83,10 @@ public class Battle {
 
    public Enemy getEnemy() {
         return enemy;
+    }
+
+    public int getTurnNr() {
+        return turn;
     }
 }
 

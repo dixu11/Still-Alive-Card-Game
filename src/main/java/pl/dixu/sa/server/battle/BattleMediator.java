@@ -46,6 +46,11 @@ public class BattleMediator {
     }
 
     public void generateEnergy(int energy) {
-        //todo
+        human.addEnergy(energy);
+        client.addEnergy(energy);
+    }
+
+   public int getTurnNumber() {
+        return battle.getTurnNr();
     }
 }

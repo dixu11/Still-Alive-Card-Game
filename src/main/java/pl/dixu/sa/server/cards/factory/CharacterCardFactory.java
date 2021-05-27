@@ -1,4 +1,6 @@
 package pl.dixu.sa.server.cards.factory;
+import pl.dixu.sa.server.cards.effect.GenerateHeroEffect;
+import pl.dixu.sa.server.cards.effect.GeneratorStandardEffect;
 import pl.dixu.sa.server.cards.general.Area;
 import pl.dixu.sa.server.battle.Deck;
 import pl.dixu.sa.server.cards.general.Level;
@@ -22,10 +24,12 @@ public class CharacterCardFactory {
 
     public CharacterCard createGeneral() {
         List<BattleEffect> triggers = new ArrayList<>();
+        triggers.add(new GenerateHeroEffect());
         Queue<Level> levels = new LinkedList<>();
         levels.add(new Level(0,10,0));
         CharacterCard characterCard = new CharacterCard(0, Area.GENERAL, triggers, levels, "General");
         characterCard.levelUp();
+
         return characterCard;
     }
 
@@ -53,6 +57,7 @@ public class CharacterCardFactory {
         levels.add(new Level(3,0,0));
         //add heal to max effect
         CharacterCard characterCard = new CharacterCard(0, Area.GENERATORS, triggers, levels,"Generator");
+        triggers.add(new GeneratorStandardEffect(characterCard));
         characterCard.levelUp();
         return characterCard;
     }

@@ -1,10 +1,6 @@
 package pl.dixu.sa.server.cards.effect;
 
-import pl.dixu.sa.server.command.CommandClient;
-
-public class GenerateEffect extends BattleEffect {
-
-    private int energy;
+public abstract class GenerateEffect extends BattleEffect {
 
     public GenerateEffect() {
         super(EffectType.GENERATOR);
@@ -12,6 +8,10 @@ public class GenerateEffect extends BattleEffect {
 
     @Override
     public void execute() {
-        mediator.generateEnergy(energy);
+        mediator.generateEnergy(energyThisTurn());
     }
+
+    protected abstract int energyThisTurn();
+
+
 }

@@ -31,7 +31,7 @@ public final class PresenterThread implements Runnable {
         }
     }
 
-    public void queuePresentationCommand(Command task) {
+    public void queue(Command task) {
         tasks.add(task);
     }
 

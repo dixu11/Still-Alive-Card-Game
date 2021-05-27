@@ -45,4 +45,8 @@ public class Human extends Player {
    public void setMediator(BattleMediator mediator) {
         this.mediator = mediator;
     }
+
+    public void addEnergy(int energy) {
+        this.energy = energy;
+    }
 }

@@ -18,11 +18,6 @@ public class Table extends BattleComponent{
         this.client = client;
     }
 
-    //todo to remove
-    void playCard(CharacterCard card) {
-        playedCards.add(card);
-    }
-
    public List<CharacterCard> getByArea(Area area){
       return   playedCards.stream()
                 .filter(c->c.getArea() == area)
@@ -39,6 +34,6 @@ public class Table extends BattleComponent{
 
     public void executeEffectsByCategory(EffectType type) {
         playedCards.stream()
-                .forEach(c -> c.triggerEffect(type, client));
+                .forEach(c -> c.triggerEffect(type));
     }
 }

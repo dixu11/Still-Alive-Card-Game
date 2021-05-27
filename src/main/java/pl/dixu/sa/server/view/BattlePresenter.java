@@ -18,4 +18,6 @@ public abstract class BattlePresenter {
     public abstract void showStartBattle();
 
     public abstract void playCard(PlayCardCommand command);
+
+    public abstract void addEnergy(int energy);
 }

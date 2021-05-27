@@ -1,6 +1,5 @@
 package pl.dixu.sa.server.command;
 
-import pl.dixu.sa.server.battle.BattleMediator;
 import pl.dixu.sa.server.cards.general.CharacterCard;
 import pl.dixu.sa.server.view.BattlePresenter;
 

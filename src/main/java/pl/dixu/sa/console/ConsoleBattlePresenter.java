@@ -37,6 +37,15 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         waitForEnter();
     }
 
+    @Override
+    public void addEnergy(int energy) {
+        shortPrint("Dostajesz " + energy + " energii");
+    }
+
+    private void shortPrint(String text){
+        System.out.println(text);
+    }
+
     private void print(String text) {
         System.out.println(text + "\n");
     }
