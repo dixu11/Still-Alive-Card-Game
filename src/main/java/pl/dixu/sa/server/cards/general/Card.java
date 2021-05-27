@@ -1,11 +1,11 @@
 package pl.dixu.sa.server.cards.general;
 
-import pl.dixu.sa.server.cards.view.CardView;
+import pl.dixu.sa.server.view.CardView;
 
 public class Card {
 
     private String name;
-    private String dsc;
+    private String dsc; //todo
 
    public Card() { // for lombok
     }

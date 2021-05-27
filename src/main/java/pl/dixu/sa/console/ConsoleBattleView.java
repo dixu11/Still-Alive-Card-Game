@@ -1,15 +1,15 @@
 package pl.dixu.sa.console;
 
-import pl.dixu.sa.server.cards.view.CardView;
-import pl.dixu.sa.server.cards.view.GameView;
+import pl.dixu.sa.server.view.CardView;
+import pl.dixu.sa.server.view.BattleView;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static pl.dixu.sa.server.cards.view.CardView.*;
+import static pl.dixu.sa.server.view.CardView.*;
 
-public class ConsoleGameView extends GameView {
+public class ConsoleBattleView extends BattleView {
 
     private CardView NO_SLOT;
     private CardView EMPTY_SLOT;
@@ -18,7 +18,7 @@ public class ConsoleGameView extends GameView {
     private static final int COLUMNS = 6;
     private static String EMPTY_CHARACTER= ".";
 
-    public ConsoleGameView() {
+    public ConsoleBattleView() {
         EMPTY_TITLE = emptyTitle();
         initSlotsSignature();
     }
@@ -57,14 +57,14 @@ public class ConsoleGameView extends GameView {
         printLine(emptyLine(COLUMNS));
         printLine(List.of(EMPTY_TITLE,asTitle("Shop"), asTitle("Shop"), asTitle("Next event"),asTitle("Enemies left"), EMPTY_TITLE));
         printLine(emptyLine(COLUMNS));
-        printSignatures(List.of(NO_SLOT,game.shopCard1, game.shopCard2,game.enemyDraw, ENEMIES_LEFT, NO_SLOT));
+        printSignatures(List.of(NO_SLOT, battle.shopCard1, battle.shopCard2, battle.enemyDraw, ENEMIES_LEFT, NO_SLOT));
         printLine(List.of(asTitle("Generator"), EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE, asTitle("Enemy")));
         printLine(emptyLine(COLUMNS));
         printSignatures(List.of(EMPTY_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, EMPTY_SLOT));
         printLine(emptyLine(COLUMNS));
         printLine(List.of(asTitle("Generator"), asTitle("General"),asTitle("Defender"),asTitle("Defender"),asTitle("Defender"), asTitle("Enemy")));
         printLine(emptyLine(COLUMNS));
-        printSignatures(List.of(EMPTY_SLOT, game.general, EMPTY_SLOT, EMPTY_SLOT, EMPTY_SLOT, EMPTY_SLOT));
+        printSignatures(List.of(EMPTY_SLOT, battle.general, EMPTY_SLOT, EMPTY_SLOT, EMPTY_SLOT, EMPTY_SLOT));
         printLine(emptyLine(COLUMNS));
         printLine(List.of(asTitle("Generator"), EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE, asTitle("Enemy")));
         printLine(emptyLine(COLUMNS));
@@ -113,6 +113,4 @@ public class ConsoleGameView extends GameView {
                 .limit(length)
                 .collect(Collectors.toList());
     }
-
-
 }

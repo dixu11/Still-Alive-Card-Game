@@ -1,6 +1,6 @@
-package pl.dixu.sa.server;
+package pl.dixu.sa.server.cards.general;
 
-import pl.dixu.sa.server.effect.Effect;
+import pl.dixu.sa.server.cards.effect.BattleEffect;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class Level {
     private int nr;
     private int plusMaxHp;
     private int plusAttack;
-    private List<Effect> effects;
+    private List<BattleEffect> battleEffects;
 
    public Level(int nr, int plusMaxHp, int plusAttack) {
         this.nr = nr;
@@ -31,7 +31,7 @@ public class Level {
         return plusAttack;
     }
 
-   public   List<Effect> getEffects() {
-        return effects;
+   public   List<BattleEffect> getEffects() {
+        return battleEffects;
     }
 }

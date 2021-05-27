@@ -1,14 +1,12 @@
 package pl.dixu.sa.server.cards.factory;
 
-import pl.dixu.sa.server.Deck;
+import pl.dixu.sa.server.battle.Deck;
 import pl.dixu.sa.server.cards.general.EventCard;
-import pl.dixu.sa.server.effect.Effect;
-import pl.dixu.sa.server.effect.SpawnCharacter;
+import pl.dixu.sa.server.cards.effect.BattleEffect;
+import pl.dixu.sa.server.cards.effect.SpawnCharacter;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class EventCardFactory {
 
@@ -43,38 +41,36 @@ public class EventCardFactory {
     }
 
     public EventCard createAttack() {
-        List<Effect> effects = new ArrayList<>();
-        return new EventCard(1,effects, "Attack");
+        List<BattleEffect> battleEffects = new ArrayList<>();
+        return new EventCard(1, battleEffects, "Attack");
     }
 
     public EventCard createInvest() {
-        List<Effect> effects = new ArrayList<>();
-        return new EventCard(0,effects, "Invest");
+        List<BattleEffect> battleEffects = new ArrayList<>();
+        return new EventCard(0, battleEffects, "Invest");
     }
 
     public EventCard createSupport() {
-        List<Effect> effects = new ArrayList<>();
-        return new EventCard(0,effects,"Support");
+        List<BattleEffect> battleEffects = new ArrayList<>();
+        return new EventCard(0, battleEffects,"Support");
     }
 
     public EventCard createCharge() {
-        List<Effect> effects = new ArrayList<>();
-        return new EventCard(2,effects, "Charge");
+        List<BattleEffect> battleEffects = new ArrayList<>();
+        return new EventCard(2, battleEffects, "Charge");
     }
 
     public EventCard createDefend() {
-        List<Effect> effects = new ArrayList<>();
-        return new EventCard(1,effects,"Defend");
+        List<BattleEffect> battleEffects = new ArrayList<>();
+        return new EventCard(1, battleEffects,"Defend");
     }
 
     public EventCard createSpawnEnemyCard() {
-        List<Effect> effects = new ArrayList<>();
-        effects.add(new SpawnCharacter(characterCardFactory.createBasicEnemy(1)));
-        EventCard eventCard = new EventCard(0, effects, "Spawn Enemy");
+        List<BattleEffect> battleEffects = new ArrayList<>();
+        battleEffects.add(new SpawnCharacter(characterCardFactory.createBasicEnemy(1)));
+        EventCard eventCard = new EventCard(0, battleEffects, "Spawn Enemy");
         eventCard.setEnemy(true);
         return eventCard;
     }
-
-
 
 }

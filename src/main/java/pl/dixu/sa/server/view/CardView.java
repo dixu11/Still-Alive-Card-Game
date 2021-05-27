@@ -1,4 +1,4 @@
-package pl.dixu.sa.server.cards.view;
+package pl.dixu.sa.server.view;
 
 import java.util.ArrayList;
 import java.util.List;

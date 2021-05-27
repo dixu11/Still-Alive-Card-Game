@@ -1,5 +1,6 @@
-package pl.dixu.sa.server;
+package pl.dixu.sa.server.battle;
 
+import pl.dixu.sa.server.battle.Deck;
 import pl.dixu.sa.server.cards.general.CharacterCard;
 
 public class Shop {

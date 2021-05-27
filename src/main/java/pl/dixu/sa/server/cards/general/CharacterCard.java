@@ -2,10 +2,8 @@ package pl.dixu.sa.server.cards.general;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import pl.dixu.sa.server.Area;
-import pl.dixu.sa.server.Level;
-import pl.dixu.sa.server.cards.view.CardView;
-import pl.dixu.sa.server.effect.Effect;
+import pl.dixu.sa.server.view.CardView;
+import pl.dixu.sa.server.cards.effect.BattleEffect;
 
 import java.util.*;
 
@@ -19,10 +17,10 @@ public class CharacterCard extends Card{
     private int block=0;
     private int attack=0;
     private Area area;
-    private List<Effect> triggers;
+    private List<BattleEffect> triggers;
     private Queue<Level> levels;
 
-    public CharacterCard(int lvl, Area area, List<Effect> triggers, Queue<Level> levels, String name) {
+    public CharacterCard(int lvl, Area area, List<BattleEffect> triggers, Queue<Level> levels, String name) {
         super(name);
         this.lvl = lvl;
         this.area = area;
