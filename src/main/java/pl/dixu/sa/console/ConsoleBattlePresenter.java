@@ -1,5 +1,6 @@
 package pl.dixu.sa.console;
 
+import pl.dixu.sa.server.command.PlayCardCommand;
 import pl.dixu.sa.server.view.CardView;
 import pl.dixu.sa.server.view.BattlePresenter;
 
@@ -20,7 +21,20 @@ public class ConsoleBattlePresenter extends BattlePresenter {
 
     @Override
     public void showStartBattle() {
-        System.out.println("Rozpoczyna się bitwa!");
+        printNoLine("Rozpoczyna się bitwa!");
+        waitForEnter();
+    }
+
+    @Override
+    public void playCard(PlayCardCommand command) {
+        displayGame();
+        if (command.getPlayer().isEnemy()) {
+            print("Przeciwnik zagrywa kartę: ");
+        } else {
+            print("Zagrywasz kartę: ");
+        }
+        print(command.getCard().getName());
+        waitForEnter();
     }
 
     private void print(String text) {

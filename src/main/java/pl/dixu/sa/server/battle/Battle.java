@@ -16,9 +16,9 @@ public class Battle {
 
     //todo remove
     private Shop shop;
-    private Player player;
+    private Human human;
     private Table table;
-    private Deck<EventCard> enemyDeck;
+    private Enemy enemy;
     private CommandClient client;
     private BattleMediator battleMediator;
 
@@ -26,44 +26,33 @@ public class Battle {
         this.client = client;
         CharacterCardFactory characterCardFactory = new CharacterCardFactory();
         EventCardFactory eventCardFactory = new EventCardFactory(characterCardFactory);
-        enemyDeck = eventCardFactory.createEnemyDeck();
-        player = new Player(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
+        Deck<EventCard> enemyDeck = eventCardFactory.createEnemyDeck();
+        enemy = new Enemy(table, enemyDeck, client);
+        human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral(), client);
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
         table = new Table();
-        battleMediator = new BattleMediator(this, shop, player, table, enemyDeck);
+        battleMediator = new BattleMediator(this, shop, human, table, enemyDeck);
         client.setMediator(battleMediator);
     }
 
     public void start() {
         client.startBattle();
-        playGeneral();
-    }
-
-    public void playGeneral() {
-        CharacterCard general = player.getGeneral();
-         client.spawnCharacter(general);
-    }
-
-    EventCard drawEnemyEvent() {
-        return enemyDeck.pollCard();
-    }
-
-    public void spawnCharacter(CharacterCard character) {
-        table.playCard(character);
+        human.playGeneral();
+        enemy.playCard();
     }
 
    public BattleDTO toDTO() {
         return BattleDTO.builder()
                 .shopCard1(shop.peekFirstGenerator().toView())
                 .shopCard2(shop.peekFirstDefender().toView())
-                .hand(toViews2(player.getHand()))
-                .discardPile(player.discardPileSize())
-                .drawPile(player.drawPileSize())
-                .general(player.getGeneral().toView())
+                .hand(toViews2(human.getHand()))
+                .discardPile(human.discardPileSize())
+                .drawPile(human.drawPileSize())
+                .general(human.getGeneral().toView())
                 .defenders(toViews(table.getByArea(Area.DEFENDERS)))
                 .generators(toViews(table.getByArea(Area.GENERATORS)))
                 .enemies(toViews(table.getByArea(Area.ENEMIES)))
-                .enemyDraw(enemyDeck.peekFirst().toView())
+                .enemyDraw(enemy.getDeck().peekFirst().toView())
                 .build();
     }
     //todo pora na powtórkę z generyków!

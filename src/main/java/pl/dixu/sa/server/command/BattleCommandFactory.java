@@ -24,4 +24,8 @@ public class BattleCommandFactory {
     public StartBattleCommand getStartBattleCommand() {
         return new StartBattleCommand(mediator.getBattle(),presenterFactory.getBattlePresenter());
     }
+
+    public PlayCardCommand getPlayCardCommand() {
+        return new PlayCardCommand(presenterFactory.getBattlePresenter());
+    }
 }

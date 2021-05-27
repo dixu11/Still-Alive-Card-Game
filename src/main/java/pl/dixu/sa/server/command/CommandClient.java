@@ -1,6 +1,8 @@
 package pl.dixu.sa.server.command;
 
 import pl.dixu.sa.server.battle.BattleMediator;
+import pl.dixu.sa.server.battle.Player;
+import pl.dixu.sa.server.cards.general.EventCard;
 import pl.dixu.sa.server.engine.Engine;
 import pl.dixu.sa.server.cards.general.CharacterCard;
 
@@ -19,6 +21,13 @@ public class CommandClient {
         SpawnEventCommand command = factory.getSpawnCharacterCommand();
         command.prepare(card);
         engine.execute(command);
+    }
+
+    public void playCard(EventCard card, Player player) {
+        PlayCardCommand playCardCommand = factory.getPlayCardCommand();
+        playCardCommand.prepare(card,player);
+        engine.execute(playCardCommand);
+        card.execute(this);
     }
 
    public void setMediator(BattleMediator mediator) {

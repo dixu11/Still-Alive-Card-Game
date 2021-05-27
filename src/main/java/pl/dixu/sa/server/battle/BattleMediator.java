@@ -7,15 +7,15 @@ public class BattleMediator {
 
     private Battle battle;
     private Shop shop;
-    private Player player;
+    private Human human;
     private Table table;
     private Deck<EventCard> enemyDeck;
 
 
-   public BattleMediator(Battle battle, Shop shop, Player player, Table table, Deck<EventCard> enemyDeck) {
+   public BattleMediator(Battle battle, Shop shop, Human human, Table table, Deck<EventCard> enemyDeck) {
        this.battle = battle;
        this.shop = shop;
-        this.player = player;
+        this.human = human;
         this.table = table;
         this.enemyDeck = enemyDeck;
     }

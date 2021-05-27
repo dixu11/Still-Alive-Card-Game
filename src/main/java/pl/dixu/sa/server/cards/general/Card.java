@@ -17,4 +17,8 @@ public class Card {
     public CardView toView() {
         return new CardView(name,dsc);
     }
+
+   public String getName() {
+       return name;
+    }
 }
