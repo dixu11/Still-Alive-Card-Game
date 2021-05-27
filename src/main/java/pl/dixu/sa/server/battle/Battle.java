@@ -19,26 +19,25 @@ public class Battle {
     private Human human;
     private Table table;
     private Enemy enemy;
-    private CommandClient client;
     private BattleMediator battleMediator;
 
     public Battle(CommandClient client) {
-        this.client = client;
         CharacterCardFactory characterCardFactory = new CharacterCardFactory();
         EventCardFactory eventCardFactory = new EventCardFactory(characterCardFactory);
         Deck<EventCard> enemyDeck = eventCardFactory.createEnemyDeck();
-        enemy = new Enemy(table, enemyDeck, client);
-        human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral(), client);
+        enemy = new Enemy(table, enemyDeck);
+        human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
-        table = new Table();
-        battleMediator = new BattleMediator(this, shop, human, table, enemyDeck);
-        client.setMediator(battleMediator);
+        table = new Table(client);
+        battleMediator = new BattleMediator(this,  client);
+        BattleComponent.addMediatorToAllComponents(battleMediator);
     }
 
     public void start() {
-        client.startBattle();
+        battleMediator.startBattle();
         human.playGeneral();
         enemy.playCard();
+        table.triggerGenerators();
     }
 
    public BattleDTO toDTO() {
@@ -67,6 +66,22 @@ public class Battle {
         return cards.stream()
                 .map(c -> c.toView())
                 .collect(Collectors.toList());
+    }
+
+   public Shop getShop() {
+        return shop;
+    }
+
+   public Human getHuman() {
+        return human;
+    }
+
+   public Table getTable() {
+        return table;
+    }
+
+   public Enemy getEnemy() {
+        return enemy;
     }
 }
 

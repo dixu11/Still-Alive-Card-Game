@@ -1,15 +1,22 @@
 package pl.dixu.sa.server.battle;
 
+import pl.dixu.sa.server.cards.effect.EffectType;
 import pl.dixu.sa.server.cards.general.Area;
 import pl.dixu.sa.server.cards.general.CharacterCard;
+import pl.dixu.sa.server.command.CommandClient;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Table {
+public class Table extends BattleComponent{
 
     private List<CharacterCard> playedCards = new LinkedList<>();
+    private CommandClient client;
+
+    public Table(CommandClient client) {
+        this.client = client;
+    }
 
     //todo to remove
     void playCard(CharacterCard card) {
@@ -24,5 +31,14 @@ public class Table {
 
    public void spawn(CharacterCard character) {
         playedCards.add(character);
+    }
+
+    public void triggerGenerators() {
+        executeEffectsByCategory(EffectType.GENERATOR);
+    }
+
+    public void executeEffectsByCategory(EffectType type) {
+        playedCards.stream()
+                .forEach(c -> c.triggerEffect(type, client));
     }
 }

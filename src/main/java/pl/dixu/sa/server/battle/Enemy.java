@@ -6,17 +6,15 @@ public class Enemy extends Player {
 
     private Table table;
     private Deck<EventCard> deck;
-    private CommandClient client;
 
-    Enemy(Table table, Deck<EventCard> deck, CommandClient client) {
+    Enemy(Table table, Deck<EventCard> deck) {
         this.table = table;
         this.deck = deck;
-        this.client = client;
     }
 
     public void playCard() {
         EventCard eventCard = deck.pollCard();
-        client.playCard(eventCard,this);
+        mediator.playCard(eventCard,this);
     }
 
    public Deck<EventCard> getDeck() {

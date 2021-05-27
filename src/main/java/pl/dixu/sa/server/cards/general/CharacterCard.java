@@ -2,6 +2,8 @@ package pl.dixu.sa.server.cards.general;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import pl.dixu.sa.server.cards.effect.EffectType;
+import pl.dixu.sa.server.command.CommandClient;
 import pl.dixu.sa.server.view.CardView;
 import pl.dixu.sa.server.cards.effect.BattleEffect;
 
@@ -83,5 +85,11 @@ public class CharacterCard extends Card{
 
    public Area getArea() {
        return area;
+    }
+
+    public void triggerEffect(EffectType type, CommandClient client) {
+        triggers.stream()
+                .filter(e -> e.getType() == type)
+                .forEach(e-> e.execute());
     }
 }

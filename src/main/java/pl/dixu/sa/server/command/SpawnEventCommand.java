@@ -8,16 +8,9 @@ public class SpawnEventCommand implements Command {
 
     private BattlePresenter presenter;
     private CharacterCard character;
-    private BattleMediator mediator;
 
-    public SpawnEventCommand(BattlePresenter presenter, BattleMediator mediator) {
+    public SpawnEventCommand(BattlePresenter presenter) {
         this.presenter = presenter;
-        this.mediator = mediator;
-    }
-
-    @Override
-    public void executeLogic() {
-        mediator.spawn(character);
     }
 
     @Override

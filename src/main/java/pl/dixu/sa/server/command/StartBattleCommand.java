@@ -15,11 +15,6 @@ public class StartBattleCommand implements Command{
     }
 
     @Override
-    public void executeLogic() {
-
-    }
-
-    @Override
     public void executePresentation() {
         presenter.startBattle(battle);
     }

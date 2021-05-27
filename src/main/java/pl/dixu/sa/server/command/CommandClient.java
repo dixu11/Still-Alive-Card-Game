@@ -1,41 +1,42 @@
 package pl.dixu.sa.server.command;
 
+import pl.dixu.sa.server.battle.Battle;
 import pl.dixu.sa.server.battle.BattleMediator;
 import pl.dixu.sa.server.battle.Player;
 import pl.dixu.sa.server.cards.general.EventCard;
-import pl.dixu.sa.server.engine.Engine;
 import pl.dixu.sa.server.cards.general.CharacterCard;
+import pl.dixu.sa.server.view.PresenterFactory;
+import pl.dixu.sa.server.view.PresenterThread;
 
 //2 roles - assembly command and execute them
 public class CommandClient {
+    private PresenterThread presenter;
+    private PresenterFactory presenterFactory;
 
-    private BattleCommandFactory factory;
-    private Engine engine;
-
-    public CommandClient(BattleCommandFactory factory, Engine engine) {
-        this.factory = factory;
-        this.engine = engine;
+    public CommandClient(PresenterThread presenter, PresenterFactory presenterFactory) {
+        this.presenter = presenter;
+        this.presenterFactory = presenterFactory;
     }
 
     public void spawnCharacter(CharacterCard card) {
-        SpawnEventCommand command = factory.getSpawnCharacterCommand();
+        SpawnEventCommand command =new SpawnEventCommand(presenterFactory.getBattlePresenter());
         command.prepare(card);
-        engine.execute(command);
+        presenter.queuePresentationCommand(command);
     }
 
     public void playCard(EventCard card, Player player) {
-        PlayCardCommand playCardCommand = factory.getPlayCardCommand();
+        PlayCardCommand playCardCommand = new PlayCardCommand(presenterFactory.getBattlePresenter());
         playCardCommand.prepare(card,player);
-        engine.execute(playCardCommand);
-        card.execute(this);
+        presenter.queuePresentationCommand(playCardCommand);
     }
 
-   public void setMediator(BattleMediator mediator) {
-       factory.setMediator(mediator);
+    public void startBattle(Battle battle) {
+        StartBattleCommand command = new StartBattleCommand(battle,presenterFactory.getBattlePresenter());
+        presenter.queuePresentationCommand(command);
     }
 
-    public void startBattle() {
-        StartBattleCommand command = factory.getStartBattleCommand();
-        engine.execute(command);
+   public void generateEnergy(int count) {
+     //  factory.getGenerateEnergyCommand(); // todo
     }
+
 }

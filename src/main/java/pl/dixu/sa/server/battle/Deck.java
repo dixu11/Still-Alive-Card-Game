@@ -5,7 +5,7 @@ import pl.dixu.sa.server.cards.general.Card;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Deck<T extends Card> {
+public class Deck<T extends Card> extends BattleComponent{
 
     private Queue<T> cards = new LinkedList<>();
 

@@ -3,7 +3,7 @@ package pl.dixu.sa.server.cards.factory;
 import pl.dixu.sa.server.battle.Deck;
 import pl.dixu.sa.server.cards.general.EventCard;
 import pl.dixu.sa.server.cards.effect.BattleEffect;
-import pl.dixu.sa.server.cards.effect.SpawnCharacter;
+import pl.dixu.sa.server.cards.effect.SpawnCharacterEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class EventCardFactory {
 
     public EventCard createSpawnEnemyCard() {
         List<BattleEffect> battleEffects = new ArrayList<>();
-        battleEffects.add(new SpawnCharacter(characterCardFactory.createBasicEnemy(1)));
+        battleEffects.add(new SpawnCharacterEffect(characterCardFactory.createBasicEnemy(1)));
         EventCard eventCard = new EventCard(0, battleEffects, "Spawn Enemy");
         eventCard.setEnemy(true);
         return eventCard;

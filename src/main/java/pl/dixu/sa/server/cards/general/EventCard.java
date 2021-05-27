@@ -33,9 +33,9 @@ public class EventCard extends Card{
         return Objects.hash(cost);
     }
 
-    public void execute(CommandClient client) {
+    public void execute() {
         for (BattleEffect playBattleEffect : playBattleEffects) {
-            playBattleEffect.execute(client);
+            playBattleEffect.execute();
         }
     }
 

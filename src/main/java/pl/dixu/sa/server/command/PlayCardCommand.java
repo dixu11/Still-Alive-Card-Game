@@ -16,11 +16,6 @@ public class PlayCardCommand implements Command{
     }
 
     @Override
-    public void executeLogic() {
-
-    }
-
-    @Override
     public void executePresentation() {
         presenter.playCard(this);
     }

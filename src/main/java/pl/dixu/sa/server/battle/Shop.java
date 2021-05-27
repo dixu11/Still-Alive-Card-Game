@@ -3,7 +3,7 @@ package pl.dixu.sa.server.battle;
 import pl.dixu.sa.server.battle.Deck;
 import pl.dixu.sa.server.cards.general.CharacterCard;
 
-public class Shop {
+public class Shop extends BattleComponent{
 
     private Deck<CharacterCard> generators;
     private Deck<CharacterCard> defenders;
