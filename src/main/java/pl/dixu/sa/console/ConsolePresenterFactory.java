@@ -1,7 +1,7 @@
 package pl.dixu.sa.console;
 
-import pl.dixu.sa.server.view.BattlePresenter;
-import pl.dixu.sa.server.view.PresenterFactory;
+import pl.dixu.sa.game.view.presenter.BattlePresenter;
+import pl.dixu.sa.game.view.presenter.PresenterFactory;
 
 public class ConsolePresenterFactory extends PresenterFactory {
 

@@ -1,9 +1,11 @@
 package pl.dixu.sa.console;
 
-import pl.dixu.sa.server.command.PlayCardCommand;
-import pl.dixu.sa.server.view.CardAttributes;
-import pl.dixu.sa.server.view.BattlePresenter;
+import pl.dixu.sa.game.battle.Player;
+import pl.dixu.sa.game.cards.general.Card;
+import pl.dixu.sa.game.view.model.CardAttributes;
+import pl.dixu.sa.game.view.presenter.BattlePresenter;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleBattlePresenter extends BattlePresenter {
@@ -26,20 +28,31 @@ public class ConsoleBattlePresenter extends BattlePresenter {
     }
 
     @Override
-    public void playCard(PlayCardCommand command) {
+    public void playCard(Player player, Card card) {
         displayGame();
-        if (command.getPlayer().isEnemy()) {
+        if (player.isEnemy()) {
             print("Przeciwnik zagrywa kartę: ");
         } else {
             print("Zagrywasz kartę: ");
         }
-        print(command.getCard().getName());
+        print(card.getName());
         waitForEnter();
     }
+
 
     @Override
     public void addEnergy(int energy) {
         shortPrint("Dostajesz " + energy + " energii");
+    }
+
+    @Override
+    public void showDraw(List<CardAttributes> cards) { //todo refactor
+        System.out.println("Dociągasz " + cards.size() + " kart");
+    }
+
+    @Override
+    public void showShuffle() {
+        print("Wtasowujesz wykorzystane karty do puli");
     }
 
     private void shortPrint(String text){

@@ -1,13 +1,13 @@
 package pl.dixu.sa.console;
 
-import pl.dixu.sa.server.view.CardAttributes;
-import pl.dixu.sa.server.view.BattleView;
+import pl.dixu.sa.game.view.model.CardAttributes;
+import pl.dixu.sa.game.view.model.BattleView;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static pl.dixu.sa.server.view.CardAttributes.*;
+import static pl.dixu.sa.game.view.model.CardAttributes.*;
 
 public class ConsoleBattleView extends BattleView {
 

@@ -1,8 +1,8 @@
 package pl.dixu.sa;
 
 import pl.dixu.sa.console.ConsolePresenterFactory;
-import pl.dixu.sa.server.core.GameFactory;
-import pl.dixu.sa.server.core.Gameplay;
+import pl.dixu.sa.game.core.GameFactory;
+import pl.dixu.sa.game.core.Gameplay;
 
 public class Launcher {
     public static void main(String[] args) {
