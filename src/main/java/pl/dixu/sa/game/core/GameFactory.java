@@ -1,6 +1,5 @@
 package pl.dixu.sa.game.core;
 
-import pl.dixu.sa.game.battle.BattleFactory;
 import pl.dixu.sa.game.view.presenter.PresenterFactory;
 import pl.dixu.sa.game.view.presenter.PresenterThread;
 import pl.dixu.sa.game.view.CommandClient;
@@ -22,8 +21,7 @@ public class GameFactory {
 
     public Gameplay build() {
         CommandClient client = new CommandClient(presenterThread, presenterFactory);
-        BattleFactory battleFactory = new BattleFactory(client);
-        return new Gameplay(battleFactory);
+        return new Gameplay(client);
     }
 
 }

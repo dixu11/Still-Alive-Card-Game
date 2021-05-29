@@ -9,12 +9,13 @@ import java.util.List;
 
 public class BattleMediator {
 
+    private CommandClient client;
+
     private Battle battle;
     private Shop shop;
     private Human human;
     private Table table;
     private Enemy enemy;
-    private CommandClient client;
 
     public BattleMediator(Battle battle,CommandClient client) {
         this.battle = battle;
@@ -25,18 +26,12 @@ public class BattleMediator {
         this.client = client;
     }
 
-    public void spawn(CharacterCard character) {
-        table.spawn(character);
+    //pure logic
+    public int getTurnNumber() {
+        return battle.getTurnNr();
     }
 
-    public Battle getBattle() {
-        return battle;
-    }
-
-    public void startBattle() {
-        client.startBattle(battle);
-    }
-
+    //logic and presentation
     public void spawnCharacter(CharacterCard character) {
         table.spawn(character);
         client.spawnCharacter(character);
@@ -52,12 +47,12 @@ public class BattleMediator {
         client.addEnergy(energy);
     }
 
-   public int getTurnNumber() {
-        return battle.getTurnNr();
-    }
-
+    //pure presentation
     public void showDraw(List<? extends Card> cards) {
         client.showDraw(cards);
+    }
+    public void startBattle() {
+        client.startBattle(battle);
     }
 
     public void showShuffle() {

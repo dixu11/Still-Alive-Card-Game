@@ -15,15 +15,20 @@ import java.util.stream.Collectors;
 
 public class Battle implements BattleController {
 
-    //todo remove
+    private BattleMediator battleMediator;
+
     private Shop shop;
     private Human human;
     private Table table;
     private Enemy enemy;
-    private BattleMediator battleMediator;
+
     private int turn = 1;
 
     public Battle(CommandClient client) {
+        createComponents(client);
+    }
+
+    private void createComponents(CommandClient client) {
         CharacterCardFactory characterCardFactory = new CharacterCardFactory();
         EventCardFactory eventCardFactory = new EventCardFactory(characterCardFactory);
         Deck<EventCard> enemyDeck = eventCardFactory.createEnemyDeck();
@@ -31,19 +36,27 @@ public class Battle implements BattleController {
         human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
         table = new Table(client);
-        battleMediator = new BattleMediator(this,  client);
+        battleMediator = new BattleMediator(this, client);
         BattleComponent.addMediatorToAllComponents(battleMediator);
     }
 
-    public void start() {
+    public void begin() {
+        setupPhase();
+        playRound();
+    }
+
+    private void setupPhase() {
         battleMediator.startBattle();
         human.playGeneral();
+    }
+
+    private void playRound() {
         enemy.playCard();
         table.triggerGenerators();
         human.drawCards();
     }
 
-   public BattleDTO toDTO() {
+    public BattleDTO toDTO() {
         return BattleDTO.builder()
                 .shopCard1(shop.peekFirstGenerator().toAttributes())
                 .shopCard2(shop.peekFirstDefender().toAttributes())
@@ -57,33 +70,33 @@ public class Battle implements BattleController {
                 .enemyDraw(enemy.getDeck().peekFirst().toAttributes())
                 .build();
     }
+
     //todo pora na powtórkę z generyków!
-
-    List<CardAttributes> toViews(List<CharacterCard> cards) {
+    private List<CardAttributes> toViews(List<CharacterCard> cards) {
         return cards.stream()
                 .map(c -> c.toAttributes())
                 .collect(Collectors.toList());
     }
 
-    List<CardAttributes> toViews2(List<EventCard> cards) {
+    private List<CardAttributes> toViews2(List<EventCard> cards) {
         return cards.stream()
                 .map(c -> c.toAttributes())
                 .collect(Collectors.toList());
     }
 
-   public Shop getShop() {
+    public Shop getShop() {
         return shop;
     }
 
-   public Human getHuman() {
+    public Human getHuman() {
         return human;
     }
 
-   public Table getTable() {
+    public Table getTable() {
         return table;
     }
 
-   public Enemy getEnemy() {
+    public Enemy getEnemy() {
         return enemy;
     }
 

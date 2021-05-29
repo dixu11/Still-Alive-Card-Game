@@ -1,15 +1,15 @@
 package pl.dixu.sa.game.core;
 
 import pl.dixu.sa.game.battle.Battle;
-import pl.dixu.sa.game.battle.BattleFactory;
+import pl.dixu.sa.game.view.CommandClient;
 
 //global game service (all game stages, even outside battles)
 public class Gameplay {
 
-    private BattleFactory battleFactory;
+    private CommandClient client;
 
-   public Gameplay(BattleFactory battleFactory) {
-        this.battleFactory = battleFactory;
+    public Gameplay(CommandClient client) {
+        this.client = client;
     }
     public void startGame() {
         startGameplay();
@@ -20,7 +20,7 @@ public class Gameplay {
     }
 
     private void startBattle() {
-        Battle battle = battleFactory.createBattle();
-        battle.start();
+        Battle battle = new Battle(client);
+        battle.begin();
     }
 }
