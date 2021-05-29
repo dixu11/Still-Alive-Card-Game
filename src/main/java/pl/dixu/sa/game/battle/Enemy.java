@@ -3,11 +3,9 @@ import pl.dixu.sa.game.cards.general.EventCard;
 
 public class Enemy extends Player {
 
-    private Table table;
     private Deck<EventCard> deck;
 
-    Enemy(Table table, Deck<EventCard> deck) {
-        this.table = table;
+   public Enemy( Deck<EventCard> deck) {
         this.deck = deck;
     }
 

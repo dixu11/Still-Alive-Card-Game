@@ -32,7 +32,7 @@ public class Battle implements BattleController {
         CharacterCardFactory characterCardFactory = new CharacterCardFactory();
         EventCardFactory eventCardFactory = new EventCardFactory(characterCardFactory);
         Deck<EventCard> enemyDeck = eventCardFactory.createEnemyDeck();
-        enemy = new Enemy(table, enemyDeck);
+        enemy = new Enemy(enemyDeck);
         human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
         table = new Table(client);

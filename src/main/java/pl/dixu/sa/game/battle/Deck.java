@@ -17,12 +17,21 @@ public class Deck<T extends Card> extends BattleComponent{
     public Deck() {
     }
 
+    public List<T> draw(int drawCount) {
+        return cards.stream()
+                .limit(drawCount)
+                .collect(Collectors.toList());
+    }
+
+    public void add(Deck<T> deck) {
+        cards.addAll(deck.cards);
+    }
+
     public void add(T card) {
         cards.add(card);
     }
 
-    //fixme nullpointer!
-    T pollCard() {
+    T pollCard() {//fixme nullpointer!
         return cards.poll();
     }
 
@@ -34,17 +43,7 @@ public class Deck<T extends Card> extends BattleComponent{
         return cards.size();
     }
 
-    public List<T> draw(int drawCount) {
-        return cards.stream()
-                .limit(drawCount)
-                .collect(Collectors.toList());
-    }
-
     public void shuffle() {
         Collections.shuffle(cards);
-    }
-
-    public void add(Deck<T> deck) {
-        cards.addAll(deck.cards);
     }
 }

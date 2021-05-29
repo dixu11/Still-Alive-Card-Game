@@ -8,15 +8,44 @@ import java.util.List;
 public class Human extends Player {
     public static final int DRAW_COUNT = 5;
 
-    private int energy = 0;
     private Hand hand = new Hand();
     private Deck<EventCard> drawPile;
     private Deck<EventCard> discardPile = new Deck<>();
+
     private CharacterCard general;
+    private int energy = 0;
 
     public Human(Deck<EventCard> drawPile, CharacterCard general) {
         this.drawPile = drawPile;
         this.general = general;
+    }
+
+    public void drawCards() { //todo what if deck is less than 5?
+        List<EventCard> cards = drawPile.draw(DRAW_COUNT);
+        int cardsLeft = DRAW_COUNT - cards.size();
+        mediator.showDraw(cards);
+        if (cardsLeft > 0) {
+            return;
+        }
+        discardPile.shuffle();
+        mediator.showShuffle();
+        drawPile.add(discardPile);
+        List<EventCard> nextCards = drawPile.draw(cardsLeft);
+        cards.addAll(nextCards);
+        mediator.showDraw(cards);
+    }
+
+    void playGeneral() {
+        mediator.spawnCharacter(general);
+    }
+
+    public void addEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    @Override
+    public boolean isEnemy() {
+        return false;
     }
 
     public CharacterCard getGeneral() {
@@ -35,35 +64,4 @@ public class Human extends Player {
         return discardPile.size();
     }
 
-    void playGeneral() {
-        mediator.spawnCharacter(general);
-    }
-
-    @Override
-    public boolean isEnemy() {
-        return false;
-    }
-
-   public void setMediator(BattleMediator mediator) {
-        this.mediator = mediator;
-    }
-
-    public void addEnergy(int energy) {
-        this.energy = energy;
-    }
-
-    public void drawCards() { //todo what if deck is less than 5?
-        List<EventCard> cards = drawPile.draw(DRAW_COUNT);
-        int cardsLeft = DRAW_COUNT - cards.size();
-        mediator.showDraw(cards);
-        if (cardsLeft > 0) {
-            return;
-        }
-        discardPile.shuffle();
-        mediator.showShuffle();
-        drawPile.add(discardPile);
-        List<EventCard> nextCards = drawPile.draw(cardsLeft);
-        cards.addAll(nextCards);
-        mediator.showDraw(cards);
-    }
 }

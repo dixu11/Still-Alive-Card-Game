@@ -20,3 +20,5 @@ public class Shop extends BattleComponent{
         return defenders.peekFirst();
     }
 }
+
+//todo refactor - slots
