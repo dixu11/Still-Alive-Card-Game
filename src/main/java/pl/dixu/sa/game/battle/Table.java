@@ -3,7 +3,6 @@ package pl.dixu.sa.game.battle;
 import pl.dixu.sa.game.cards.effect.EffectType;
 import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.CharacterCard;
-import pl.dixu.sa.game.view.CommandClient;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class Table extends BattleComponent{
     }
 
     public void executeEffectsByCategory(EffectType type) {
-        playedCards.forEach(c -> c.executeEffect(type));
+        playedCards.forEach(c -> c.executeEffects(type));
     }
 
     public void spawn(CharacterCard character) {

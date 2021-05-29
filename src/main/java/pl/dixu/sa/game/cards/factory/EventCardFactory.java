@@ -7,6 +7,7 @@ import pl.dixu.sa.game.cards.effect.SpawnCharacterEffect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class EventCardFactory {
 
@@ -18,18 +19,17 @@ public class EventCardFactory {
 
     public Deck<EventCard> createStartingDeck() {
         Deck<EventCard> deck = new Deck<>();
-        deck.add(createAttack());
-        deck.add(createAttack());
-        deck.add(createAttack());
-        deck.add(createAttack());
-        deck.add(createInvest());
-        deck.add(createInvest());
-        deck.add(createSupport());
-        deck.add(createSupport());
-        deck.add(createDefend());
-        deck.add(createDefend());
-        deck.add(createCharge());
+        addTimes(deck, createInvest(), 2);
+        addTimes(deck, createSupport(), 2);
+        addTimes(deck, createAttack(), 3);
+        addTimes(deck,createCharge(),1);
+        addTimes(deck, createDefend(), 2);
         return deck;
+    }
+
+    private void addTimes(Deck<EventCard> cards, EventCard card, int count) {
+        IntStream.range(0, count)
+                .forEach(i -> cards.add(card));
     }
 
     public Deck<EventCard> createEnemyDeck() {
@@ -41,26 +41,22 @@ public class EventCardFactory {
     }
 
     public EventCard createAttack() {
-        return new EventCard(1,  "Attack");
+       return new EventCard(1, "Attack");
     }
 
     public EventCard createInvest() {
-        List<BattleEffect> battleEffects = new ArrayList<>();
-        return new EventCard(0,  "Invest");
+        return new EventCard(0, "Invest");
     }
 
     public EventCard createSupport() {
-        List<BattleEffect> battleEffects = new ArrayList<>();
         return new EventCard(0, "Support");
     }
 
     public EventCard createCharge() {
-        List<BattleEffect> battleEffects = new ArrayList<>();
         return new EventCard(2,  "Charge");
     }
 
     public EventCard createDefend() {
-        List<BattleEffect> battleEffects = new ArrayList<>();
         return new EventCard(1, "Defend");
     }
 

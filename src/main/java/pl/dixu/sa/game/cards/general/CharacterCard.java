@@ -6,24 +6,31 @@ import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.model.Viewable;
 
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Builder
 @AllArgsConstructor //for lombok builder
 public class CharacterCard extends Card implements Viewable {
 
-    private int maxHp=0;
-    private int actualHp=0;
-    private int lvl;
-    private int block=0;
-    private int attack=0;
+    private int lvl = 0;
+    private int maxHp = 0;
+    private int actualHp = 0;
+    private int block = 0;
+    private int attack = 0;
+
     private Area area;
     private Queue<Level> levels;
 
-    public CharacterCard(int lvl, Area area, Queue<Level> levels, String name) {
+    public CharacterCard(Area area, Queue<Level> levels, String name) {
         super(name);
-        this.lvl = lvl;
         this.area = area;
         this.levels = levels;
+    }
+
+    public CharacterCard addLevels(int count) {
+        IntStream.range(0,count).forEach(i->levelUp()); //classic for stream version :)
+        return this;
     }
 
     public void levelUp() {
@@ -78,11 +85,9 @@ public class CharacterCard extends Card implements Viewable {
                 '}';
     }
 
-   public Area getArea() {
-       return area;
+    public Area getArea() {
+        return area;
     }
-
-
 
     public int getLvl() {
         return lvl;

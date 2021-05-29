@@ -35,7 +35,7 @@ public class Battle implements BattleController {
         enemy = new Enemy(enemyDeck);
         human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
-        table = new Table(client);
+        table = new Table();
         battleMediator = new BattleMediator(this, client);
         BattleComponent.addMediatorToAllComponents(battleMediator);
     }

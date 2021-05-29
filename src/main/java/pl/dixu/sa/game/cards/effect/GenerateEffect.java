@@ -8,15 +8,15 @@ public abstract class GenerateEffect extends BattleEffect {
         super(EffectType.GENERATOR);
     }
 
+    protected abstract int energyThisTurn();
+
     @Override
     public void execute() {
         mediator.generateEnergy(energyThisTurn());
     }
 
-    protected abstract int energyThisTurn();
-
     @Override
     public CardAttributes toAttributes() {
-       return super.toAttributes().addAttribute("generates", energyThisTurn() + "");
+        return super.toAttributes().addAttribute("generates", energyThisTurn() + "");
     }
 }

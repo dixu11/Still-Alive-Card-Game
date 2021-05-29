@@ -11,6 +11,7 @@ public class Gameplay {
     public Gameplay(CommandClient client) {
         this.client = client;
     }
+
     public void startGame() {
         startGameplay();
     }

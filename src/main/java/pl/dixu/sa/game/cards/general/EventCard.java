@@ -7,11 +7,15 @@ public class EventCard extends Card{
 
     private int cost;
     private boolean enemy;
-    //value
+    //value //todo next reason to introduce EnemyEventCard class?
 
     public EventCard(int cost,  String name) {
         super(name);
         this.cost = cost;
+    }
+
+    public void setEnemy(boolean enemy) {
+        this.enemy = enemy;
     }
 
     @Override
@@ -33,9 +37,5 @@ public class EventCard extends Card{
                 .addAttribute("enemy", String.valueOf(enemy))
                 .addAttribute("cost", String.valueOf(cost))
                 .addAttribute("event", "true");
-    }
-
-   public void setEnemy(boolean enemy) {
-        this.enemy = enemy;
     }
 }
