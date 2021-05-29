@@ -37,12 +37,7 @@ public class BattleMediator {
         client.spawnCharacter(character);
     }
 
-    public void playCard( Enemy enemy,EventCard eventCard) {
-        eventCard.executeEffects();
-        client.playCard(enemy, eventCard);
-    }
-
-    public void generateEnergy(int energy) {
+    public void showEnergyChange(int energy) {
         human.addEnergy(energy);
         client.addEnergy(energy);
     }
@@ -57,5 +52,26 @@ public class BattleMediator {
 
     public void showShuffle() {
         client.showShuffle();
+    }
+
+    public void showCardPlayed(Player owner, EventCard card) {
+        client.showCardPlayed(owner,card);
+    }
+
+    public EventCard buyShopCard(int cardId, int energy) {
+        return shop.buyCard(cardId,energy);
+    }
+
+    public void showNewCard(EventCard card) {
+        client.showNewCard(card);
+    }
+
+    public void assignTargetForActiveCard(int cardId) {
+        table.assignTargetForActiveCard(cardId);
+    }
+
+    public void endTurn() {
+        battle.endTurn();
+        client.showEndTurn();
     }
 }

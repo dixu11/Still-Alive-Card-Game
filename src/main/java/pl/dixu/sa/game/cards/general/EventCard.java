@@ -1,5 +1,6 @@
 package pl.dixu.sa.game.cards.general;
 
+import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import java.util.Objects;
 
@@ -12,6 +13,11 @@ public class EventCard extends Card{
     public EventCard(int cost,  String name) {
         super(name);
         this.cost = cost;
+    }
+
+    public void play(Player owner) {
+        mediator.showCardPlayed(owner,this);
+        executeEffects();
     }
 
     public void setEnemy(boolean enemy) {
@@ -37,5 +43,9 @@ public class EventCard extends Card{
                 .addAttribute("enemy", String.valueOf(enemy))
                 .addAttribute("cost", String.valueOf(cost))
                 .addAttribute("event", "true");
+    }
+
+    public int getCost() {
+        return cost;
     }
 }

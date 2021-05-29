@@ -2,6 +2,7 @@ package pl.dixu.sa.game.cards.general;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import pl.dixu.sa.game.cards.effect.SpawnCharacterEffect;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.model.Viewable;
 
@@ -18,6 +19,7 @@ public class CharacterCard extends Card implements Viewable {
     private int actualHp = 0;
     private int block = 0;
     private int attack = 0;
+    private int cost = -1;
 
     private Area area;
     private Queue<Level> levels;
@@ -27,6 +29,14 @@ public class CharacterCard extends Card implements Viewable {
         this.area = area;
         this.levels = levels;
     }
+
+    public CharacterCard(Area area, Queue<Level> levels, String name, int cost) {
+        super(name);
+        this.area = area;
+        this.levels = levels;
+        this.cost = cost;
+    }
+
 
     public CharacterCard addLevels(int count) {
         IntStream.range(0,count).forEach(i->levelUp()); //classic for stream version :)
@@ -92,4 +102,11 @@ public class CharacterCard extends Card implements Viewable {
     public int getLvl() {
         return lvl;
     }
+
+    public EventCard toEventCard() {
+        EventCard eventCard = new EventCard(cost,"Play "+ name);
+        eventCard.addEffect(new SpawnCharacterEffect(this));
+        return eventCard;
+    }
+
 }

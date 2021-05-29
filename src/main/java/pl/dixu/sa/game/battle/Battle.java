@@ -9,8 +9,13 @@ import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.model.BattleDTO;
 import pl.dixu.sa.game.view.CommandClient;
 import pl.dixu.sa.game.view.presenter.BattleController;
+import pl.dixu.sa.game.view.presenter.PlayerDecision;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 
 public class Battle implements BattleController {
@@ -22,7 +27,10 @@ public class Battle implements BattleController {
     private Table table;
     private Enemy enemy;
 
-    private int turn = 1;
+    private BlockingQueue<PlayerDecision> decisions;
+
+    private int turnCounter = 0;
+    private boolean playerTurn = false;
 
     public Battle(CommandClient client) {
         createComponents(client);
@@ -38,6 +46,7 @@ public class Battle implements BattleController {
         table = new Table();
         battleMediator = new BattleMediator(this, client);
         BattleComponent.addMediatorToAllComponents(battleMediator);
+        decisions = new LinkedBlockingQueue<>();
     }
 
     public void begin() {
@@ -51,9 +60,34 @@ public class Battle implements BattleController {
     }
 
     private void playRound() {
+        setupRound();
+        play();
+    }
+
+    private void setupRound() {
+        turnCounter++;
         enemy.playCard();
         table.triggerGenerators();
         human.drawCards();
+    }
+
+    private void play() {
+        playerTurn = true;
+        while (playerTurn) {
+            executeDecision();
+        }
+    }
+
+    private void executeDecision() {
+        try {
+            decisions.take().execute(human);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("wtf?");
+        }
+    }
+
+    public void endTurn() {
+        playerTurn = false;
     }
 
     public BattleDTO toDTO() {
@@ -70,8 +104,8 @@ public class Battle implements BattleController {
                 .enemyDraw(enemy.getDeck().peekFirst().toAttributes())
                 .build();
     }
-
     //todo pora na powtórkę z generyków!
+
     private List<CardAttributes> toViews(List<CharacterCard> cards) {
         return cards.stream()
                 .map(c -> c.toAttributes())
@@ -101,7 +135,7 @@ public class Battle implements BattleController {
     }
 
     public int getTurnNr() {
-        return turn;
+        return turnCounter;
     }
 }
 

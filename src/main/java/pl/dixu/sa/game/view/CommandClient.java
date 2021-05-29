@@ -28,34 +28,41 @@ public class CommandClient {
         presenter.queue(createCommand(p->p.spawn(card.toAttributes())));
     }
 
-    public void playCard(Player player,Card card) {
-        presenter.queue(createCommand(p->p.playCard(player,card)));
-    }
-
     public void startBattle(Battle battle) {
         presenter.queue(createCommand(p->p.startBattle(battle)));
     }
 
     public void addEnergy(int energy) {
         presenter.queue(createCommand(p->p.addEnergy(energy)));
-
     }
 
     public void showDraw(List<? extends Card> cards) {
-        presenter.queue(createCommand(p->showDraw(cards)));
-    }
-
-    private List<CardAttributes> toAttributes(List<? extends Card> cards) {
-        return cards.stream()
-                .map(c -> c.toAttributes())
-                .collect(Collectors.toList());
+        presenter.queue(createCommand(p->p.showDraw(cards)));
     }
 
     public void showShuffle() {
         presenter.queue(createCommand(BattlePresenter::showShuffle));
     }
 
+    public void showCardPlayed(Player owner, EventCard card) {
+        presenter.queue(createCommand(p-> p.showCardPlayed(owner,card)));
+    }
+
+    public void showNewCard(EventCard card) {
+        presenter.queue(createCommand(p-> p.showNewCard(card)));
+    }
+
+    public void showEndTurn() {
+        presenter.queue(createCommand(p -> p.showEndTurn()));
+    }
+
     private BattleCommand createCommand(BattlePresenterAnimation animation) {
         return new BattleCommand(battlePresenter,animation);
+    }
+
+    private List<CardAttributes> toAttributes(List<? extends Card> cards) {
+        return cards.stream()
+                .map(c -> c.toAttributes())
+                .collect(Collectors.toList());
     }
 }

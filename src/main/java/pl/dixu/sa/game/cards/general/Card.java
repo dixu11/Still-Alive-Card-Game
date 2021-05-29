@@ -7,13 +7,21 @@ import pl.dixu.sa.game.cards.effect.EffectType;
 import pl.dixu.sa.game.view.model.CardAttributes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class Card extends BattleComponent {
-    private String name;
-
+    private int id;
+    protected String name;
     private String dsc; //todo
     private List<BattleEffect> effects = new ArrayList<>();
+    private CharacterCard target = null;
+    private static int nextId = 1;
+
+    { // initialization block triggers before all constructors
+        id = nextId++;
+    }
 
     public Card() { // for lombok
         name = "";
@@ -39,6 +47,11 @@ public class Card extends BattleComponent {
                 .forEach(BattleEffect::execute);
     }
 
+    public void assignTargetAndTrigger(CharacterCard card) {
+        target = card;
+        executeEffects();
+    }
+
     @Override
     public CardAttributes toAttributes() {
         CardAttributes attr = super.toAttributes()
@@ -49,5 +62,15 @@ public class Card extends BattleComponent {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public  static <T extends Card> Optional<T> findCardById(Collection<T> cards, int id) {
+        return cards.stream()
+                .filter(c -> c.getId() == id)
+                .findAny();
     }
 }

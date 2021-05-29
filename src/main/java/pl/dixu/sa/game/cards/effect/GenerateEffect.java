@@ -12,7 +12,7 @@ public abstract class GenerateEffect extends BattleEffect {
 
     @Override
     public void execute() {
-        mediator.generateEnergy(energyThisTurn());
+        mediator.showEnergyChange(energyThisTurn());
     }
 
     @Override

@@ -2,6 +2,7 @@ package pl.dixu.sa.console;
 
 import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.general.Card;
+import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
 
@@ -28,7 +29,7 @@ public class ConsoleBattlePresenter extends BattlePresenter {
     }
 
     @Override
-    public void playCard(Player player, Card card) {
+    public void showCardPlayed(Player player, Card card) {
         displayGame();
         if (player.isEnemy()) {
             print("Przeciwnik zagrywa kartę: ");
@@ -46,13 +47,26 @@ public class ConsoleBattlePresenter extends BattlePresenter {
     }
 
     @Override
-    public void showDraw(List<CardAttributes> cards) { //todo refactor
+    public void showDraw(List<? extends Card> cards) {
         System.out.println("Dociągasz " + cards.size() + " kart");
     }
 
     @Override
     public void showShuffle() {
         print("Wtasowujesz wykorzystane karty do puli");
+    }
+
+    @Override
+    public void showNewCard(EventCard card) {
+        //todo
+        System.out.println("Twoja nowa karta: ");
+        card.toAttributes().consoleDisplay();
+    }
+
+    @Override
+    public void showEndTurn() {
+        //todo
+        System.out.println("Zakończyłeś turę");
     }
 
     private void shortPrint(String text){

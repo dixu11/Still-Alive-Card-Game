@@ -11,7 +11,7 @@ public class Enemy extends Player {
 
     public void playCard() {
         EventCard eventCard = deck.pollCard();
-        mediator.playCard(this,eventCard);
+        eventCard.play(this);
     }
 
    public Deck<EventCard> getDeck() {
