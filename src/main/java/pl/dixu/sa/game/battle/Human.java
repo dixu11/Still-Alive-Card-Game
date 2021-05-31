@@ -74,13 +74,14 @@ public class Human extends Player implements PlayerController {
     private void drawCards(int count){
         List<EventCard> cards = drawPile.draw(count);
         int cardsLeft = count - cards.size();
+        hand.addAll(cards);
         mediator.showDraw(cards);
         if (cardsLeft == 0) return;
         discardPile.shuffle();
         mediator.showShuffle();
         drawPile.add(discardPile);
         List<EventCard> nextCards = drawPile.draw(cardsLeft);
-        cards.addAll(nextCards);
+        hand.addAll(nextCards);
         mediator.showDraw(cards);
     }
 

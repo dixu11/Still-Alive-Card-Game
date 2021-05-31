@@ -1,6 +1,7 @@
 package pl.dixu.sa.game.view;
 
 import pl.dixu.sa.game.battle.Battle;
+import pl.dixu.sa.game.battle.Human;
 import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.EventCard;
@@ -8,6 +9,7 @@ import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.view.command.*;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
+import pl.dixu.sa.game.view.presenter.PlayerController;
 import pl.dixu.sa.game.view.presenter.PresenterFactory;
 import pl.dixu.sa.game.view.presenter.PresenterThread;
 
@@ -58,6 +60,10 @@ public class CommandClient {
 
     private BattleCommand createCommand(BattlePresenterAnimation animation) {
         return new BattleCommand(battlePresenter,animation);
+    }
+
+    public void playRound(PlayerController controller) {
+        presenter.queue(createCommand(presenter1 -> presenter1.playRound(controller)));
     }
 
     private List<CardAttributes> toAttributes(List<? extends Card> cards) {

@@ -32,4 +32,6 @@ public abstract class BattlePresenter {
     public abstract void showNewCard(EventCard card);
 
     public abstract void showEndTurn();
+
+    public abstract void playRound(PlayerController controller);
 }

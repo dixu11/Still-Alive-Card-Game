@@ -77,4 +77,12 @@ public class CardAttributes {
     public void add(Viewable viewable) {
         attributes.putAll(viewable.toAttributes().attributes);
     }
+
+    public String asLine() {
+        return name();
+    }
+
+    public String name() {
+        return attributes.get("name");
+    }
 }

@@ -74,4 +74,8 @@ public class BattleMediator {
         battle.endTurn();
         client.showEndTurn();
     }
+
+    public void playRound() {
+        client.playRound(battle.getHuman());
+    }
 }

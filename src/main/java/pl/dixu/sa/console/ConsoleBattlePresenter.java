@@ -1,10 +1,14 @@
 package pl.dixu.sa.console;
 
+import pl.dixu.sa.console.decision.ConsoleDecision;
+import pl.dixu.sa.console.decision.DecisionFactory;
 import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.EventCard;
+import pl.dixu.sa.game.view.model.BattleDTO;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
+import pl.dixu.sa.game.view.presenter.PlayerController;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +16,7 @@ import java.util.Scanner;
 public class ConsoleBattlePresenter extends BattlePresenter {
 
     private Scanner scanner = new Scanner(System.in);
-
+    private DecisionFactory decisionFactory = new DecisionFactory();
     private ConsoleBattleView consoleGameView = new ConsoleBattleView();
     @Override
     public void spawn(CardAttributes character) {
@@ -67,6 +71,62 @@ public class ConsoleBattlePresenter extends BattlePresenter {
     public void showEndTurn() {
         //todo
         System.out.println("Zakończyłeś turę");
+    }
+
+    @Override
+    public void playRound(PlayerController controller) {
+        waitForEnter();
+        displayGame();
+
+        BattleDTO battleDTO = battle.toDTO();
+        List<CardAttributes> hand = battleDTO.hand;
+
+        printCards(hand);
+        printOtherOptions();
+        System.out.println("Którą opcję wybierasz?");
+        ConsoleDecision consoleDecision = readDecision();
+        consoleDecision.consolePresenterEffect();
+        consoleDecision.execute(controller);
+
+    }
+
+    private void printCards(List<CardAttributes> hand) {
+        System.out.println("Zagraj kartę:");
+        for (int i = 0; i < hand.size(); i++) {
+            shortPrint(i+1+": " + hand.get(0).asLine());
+        }
+    }
+
+    private void printOtherOptions() {
+        shortPrint("g: wykup Generator ze sklepu");
+        shortPrint("o: wykup Obrońce ze sklepu");
+        shortPrint("d: Dociągnij kartę za 1 energii");
+        shortPrint("z: Zakończ turę");
+        shortPrint("o: Opisy kart");
+        shortPrint("w: Zakończ grę");
+    }
+
+    private ConsoleDecision readDecision() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        try{
+           return decisionFactory.createDecision(input);
+        }catch (IllegalArgumentException e){
+            shortPrint(e.getMessage());
+            return readDecision();
+        }
+    }
+
+    private void playCard(String decision) {
+
+    }
+
+    private void playOtherOption(String decision) {
+
+    }
+
+    private void executeDecision() {
+
     }
 
     private void shortPrint(String text){

@@ -73,6 +73,7 @@ public class Battle implements BattleController {
 
     private void play() {
         playerTurn = true;
+        battleMediator.playRound();
         while (playerTurn) {
             executeDecision();
         }
