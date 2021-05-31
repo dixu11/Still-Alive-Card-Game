@@ -4,4 +4,6 @@ import pl.dixu.sa.game.view.model.BattleDTO;
 
 public interface BattleController {
     BattleDTO toDTO();
+
+    void executeDecision(PlayerDecision decision);
 }

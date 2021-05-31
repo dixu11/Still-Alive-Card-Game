@@ -76,6 +76,7 @@ public class Battle implements BattleController {
         battleMediator.playRound();
         while (playerTurn) {
             executeDecision();
+            battleMediator.playRound();
         }
     }
 
@@ -104,6 +105,11 @@ public class Battle implements BattleController {
                 .enemies(toViews(table.getByArea(Area.ENEMIES)))
                 .enemyDraw(enemy.getDeck().peekFirst().toAttributes())
                 .build();
+    }
+
+    @Override
+    public void executeDecision(PlayerDecision decision) {
+        decisions.add(decision);
     }
     //todo pora na powtórkę z generyków!
 

@@ -1,23 +1,22 @@
 package pl.dixu.sa.console;
 
-import pl.dixu.sa.console.decision.ConsoleDecision;
 import pl.dixu.sa.console.decision.DecisionFactory;
 import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.EventCard;
-import pl.dixu.sa.game.view.model.BattleDTO;
 import pl.dixu.sa.game.view.model.CardAttributes;
+import pl.dixu.sa.game.view.presenter.BattleController;
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
-import pl.dixu.sa.game.view.presenter.PlayerController;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleBattlePresenter extends BattlePresenter {
+import static pl.dixu.sa.console.Utils.*;
 
-    private Scanner scanner = new Scanner(System.in);
-    private DecisionFactory decisionFactory = new DecisionFactory();
+public class ConsoleBattlePresenter extends BattlePresenter {
     private ConsoleBattleView consoleGameView = new ConsoleBattleView();
+    private DecisionFactory decisionFactory = new DecisionFactory();
+
     @Override
     public void spawn(CardAttributes character) {
         displayGame();
@@ -44,6 +43,14 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         waitForEnter();
     }
 
+
+    @Override
+    public void playRound(BattleController battleController) {
+        waitForEnter();
+        displayGame();
+        ConsoleController consoleController = new ConsoleController(battleController);
+        consoleController.playRound();
+    }
 
     @Override
     public void addEnergy(int energy) {
@@ -73,76 +80,6 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         System.out.println("Zakończyłeś turę");
     }
 
-    @Override
-    public void playRound(PlayerController controller) {
-        waitForEnter();
-        displayGame();
-
-        BattleDTO battleDTO = battle.toDTO();
-        List<CardAttributes> hand = battleDTO.hand;
-
-        printCards(hand);
-        printOtherOptions();
-        System.out.println("Którą opcję wybierasz?");
-        ConsoleDecision consoleDecision = readDecision();
-        consoleDecision.consolePresenterEffect();
-        consoleDecision.execute(controller);
-
-    }
-
-    private void printCards(List<CardAttributes> hand) {
-        System.out.println("Zagraj kartę:");
-        for (int i = 0; i < hand.size(); i++) {
-            shortPrint(i+1+": " + hand.get(0).asLine());
-        }
-    }
-
-    private void printOtherOptions() {
-        shortPrint("g: wykup Generator ze sklepu");
-        shortPrint("o: wykup Obrońce ze sklepu");
-        shortPrint("d: Dociągnij kartę za 1 energii");
-        shortPrint("z: Zakończ turę");
-        shortPrint("o: Opisy kart");
-        shortPrint("w: Zakończ grę");
-    }
-
-    private ConsoleDecision readDecision() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        try{
-           return decisionFactory.createDecision(input);
-        }catch (IllegalArgumentException e){
-            shortPrint(e.getMessage());
-            return readDecision();
-        }
-    }
-
-    private void playCard(String decision) {
-
-    }
-
-    private void playOtherOption(String decision) {
-
-    }
-
-    private void executeDecision() {
-
-    }
-
-    private void shortPrint(String text){
-        System.out.println(text);
-    }
-
-    private void print(String text) {
-        System.out.println(text + "\n");
-    }
-
-    private void waitForEnter() {
-        scanner.nextLine();
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
 
     //todo refactor
     public void playGeneral(CardAttributes general) {

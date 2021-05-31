@@ -33,5 +33,5 @@ public abstract class BattlePresenter {
 
     public abstract void showEndTurn();
 
-    public abstract void playRound(PlayerController controller);
+    public abstract void playRound(BattleController battleController);
 }

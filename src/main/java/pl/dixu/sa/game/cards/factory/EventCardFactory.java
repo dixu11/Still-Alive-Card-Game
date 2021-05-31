@@ -24,6 +24,7 @@ public class EventCardFactory {
         addTimes(deck, createAttack(), 3);
         addTimes(deck,createCharge(),1);
         addTimes(deck, createDefend(), 2);
+        deck.shuffle();
         return deck;
     }
 

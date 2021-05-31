@@ -4,7 +4,7 @@ public interface PlayerController {
 
     void playCard(int cardId);
 
-    void buyShopCard(int cardId);
+    void buyShopCard(int slotId);
 
     void buyDraw();
 

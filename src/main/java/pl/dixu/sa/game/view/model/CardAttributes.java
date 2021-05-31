@@ -85,4 +85,8 @@ public class CardAttributes {
     public String name() {
         return attributes.get("name");
     }
+
+    public int getId() {
+        return Integer.parseInt(attributes.get("id"));
+    }
 }

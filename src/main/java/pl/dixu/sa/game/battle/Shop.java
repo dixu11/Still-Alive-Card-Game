@@ -22,15 +22,16 @@ public class Shop extends BattleComponent{
         return defenders.peekFirst();
     }
 
-    public EventCard buyCard(int cardId, int energy) {
+    public EventCard buyCard(int slotId, int energy) {
+        //todo REFACTOR TO SLOT NOT CARD ID
         Deck<CharacterCard> correctDeck;
         CharacterCard shopCard;
-        if (generators.peekFirst().getId() == cardId) {
+        if (generators.peekFirst().getId() == slotId) {
             correctDeck = generators;
-        } else if (defenders.peekFirst().getId() == cardId) {
+        } else if (defenders.peekFirst().getId() == slotId) {
             correctDeck = defenders;
         } else {
-            throw new IllegalStateException("Presenter asks about not existing card id: " + cardId);
+            throw new IllegalStateException("Presenter asks about not existing card id: " + slotId);
         }
         shopCard = correctDeck.peekFirst();
         EventCard eventCard = shopCard.toEventCard();

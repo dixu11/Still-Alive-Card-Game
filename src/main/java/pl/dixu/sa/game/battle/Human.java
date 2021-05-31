@@ -37,8 +37,8 @@ public class Human extends Player implements PlayerController {
     }
 
     @Override
-    public void buyShopCard(int cardId) {
-        EventCard eventCard = mediator.buyShopCard(cardId, energy);
+    public void buyShopCard(int slotId) {
+        EventCard eventCard = mediator.buyShopCard(slotId, energy);
         int cost = eventCard.getCost();
         energy -= cost;
         mediator.showEnergyChange(-cost);

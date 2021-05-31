@@ -58,8 +58,8 @@ public class BattleMediator {
         client.showCardPlayed(owner,card);
     }
 
-    public EventCard buyShopCard(int cardId, int energy) {
-        return shop.buyCard(cardId,energy);
+    public EventCard buyShopCard(int slotId, int energy) {
+        return shop.buyCard(slotId,energy);
     }
 
     public void showNewCard(EventCard card) {
@@ -76,6 +76,6 @@ public class BattleMediator {
     }
 
     public void playRound() {
-        client.playRound(battle.getHuman());
+        client.playRound(battle);
     }
 }

@@ -55,7 +55,8 @@ public class Card extends BattleComponent {
     @Override
     public CardAttributes toAttributes() {
         CardAttributes attr = super.toAttributes()
-                .addAttribute("name", this.name);
+                .addAttribute("name", name)
+                .addAttribute("id", id + "");
         effects.forEach(attr::add);
         return attr;
     }
