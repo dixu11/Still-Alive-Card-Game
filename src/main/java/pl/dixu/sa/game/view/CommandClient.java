@@ -30,8 +30,8 @@ public class CommandClient {
         presenter.queue(createCommand(p->p.startBattle(battle)));
     }
 
-    public void addEnergy(int energy) {
-        presenter.queue(createCommand(p->p.addEnergy(energy)));
+    public void changeEnergy(int energy) {
+        presenter.queue(createCommand(p->p.changeEnergy(energy)));
     }
 
     public void showDraw(List<? extends Card> cards) {

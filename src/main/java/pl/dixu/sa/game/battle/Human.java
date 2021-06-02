@@ -17,7 +17,7 @@ public class Human extends Player implements PlayerController {
     private Deck<EventCard> discardPile = new Deck<>();
 
     private CharacterCard general;
-    private int energy = 0;
+    private volatile int energy = 0;
 
     public Human(Deck<EventCard> drawPile, CharacterCard general) {
         this.drawPile = drawPile;
@@ -31,17 +31,16 @@ public class Human extends Player implements PlayerController {
         if (cost > energy) {
             throw new BattleException("Not enough energy! Card costs " + cost);
         }
-        energy -= cost;
-        mediator.showEnergyChange(-cost);
+        mediator.changeEnergy(-cost);
         card.play(this);
+        hand.remove(card);
     }
 
     @Override
     public void buyShopCard(int slotId) {
         EventCard eventCard = mediator.buyShopCard(slotId, energy);
         int cost = eventCard.getCost();
-        energy -= cost;
-        mediator.showEnergyChange(-cost);
+        changeEnergy(-cost);
         hand.add(eventCard);
         mediator.showNewCard(eventCard);
     }
@@ -51,8 +50,7 @@ public class Human extends Player implements PlayerController {
         if (energy == 0) {
             throw new BattleException("Not enough energy to draw new card!" );
         }
-        energy--;
-        mediator.showEnergyChange(-1);
+        changeEnergy(-1);
         drawCards(1);
     }
 
@@ -89,8 +87,9 @@ public class Human extends Player implements PlayerController {
         mediator.spawnCharacter(general);
     }
 
-    public void addEnergy(int newEnergy) {
+    public void changeEnergy(int newEnergy) {
         energy += newEnergy;
+        mediator.showEnergyChange(newEnergy);
     }
 
     @Override

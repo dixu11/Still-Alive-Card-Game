@@ -38,8 +38,7 @@ public class BattleMediator {
     }
 
     public void showEnergyChange(int energy) {
-        human.addEnergy(energy);
-        client.addEnergy(energy);
+        client.changeEnergy(energy);
     }
 
     //pure presentation
@@ -77,5 +76,9 @@ public class BattleMediator {
 
     public void playRound() {
         client.playRound(battle);
+    }
+
+    public void changeEnergy(int newEnergy) {
+        human.changeEnergy(newEnergy);
     }
 }

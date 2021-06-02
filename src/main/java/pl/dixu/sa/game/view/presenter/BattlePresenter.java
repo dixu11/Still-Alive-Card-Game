@@ -23,7 +23,7 @@ public abstract class BattlePresenter {
 
     public abstract void showCardPlayed(Player player, Card card);
 
-    public abstract void addEnergy(int energy);
+    public abstract void changeEnergy(int energy);
 
     public abstract void showDraw(List<? extends Card> cards);
 

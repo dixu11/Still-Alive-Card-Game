@@ -53,8 +53,12 @@ public class ConsoleBattlePresenter extends BattlePresenter {
     }
 
     @Override
-    public void addEnergy(int energy) {
-        shortPrint("Dostajesz " + energy + " energii");
+    public void changeEnergy(int energy) {
+        if (energy > 0) {
+            shortPrint("Dostajesz " + energy + " energii");
+        } else {
+            shortPrint("Tracisz " + -energy + " energii");
+        }
     }
 
     @Override
