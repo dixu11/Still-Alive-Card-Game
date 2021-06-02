@@ -89,8 +89,8 @@ public class Human extends Player implements PlayerController {
         mediator.spawnCharacter(general);
     }
 
-    public void addEnergy(int energy) {
-        this.energy = energy;
+    public void addEnergy(int newEnergy) {
+        energy += newEnergy;
     }
 
     @Override
@@ -112,5 +112,9 @@ public class Human extends Player implements PlayerController {
 
     public int drawPileSize() {
         return discardPile.size();
+    }
+
+    public int getEnergy() {
+        return energy;
     }
 }

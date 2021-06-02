@@ -44,6 +44,8 @@ public class Battle implements BattleController {
         human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
         table = new Table();
+        table.spawn(characterCardFactory.createGenerator()); // for tests
+        table.spawn(characterCardFactory.createDefender()); // for tests
         battleMediator = new BattleMediator(this, client);
         BattleComponent.addMediatorToAllComponents(battleMediator);
         decisions = new LinkedBlockingQueue<>();
@@ -99,11 +101,13 @@ public class Battle implements BattleController {
                 .hand(toViews2(human.getHand()))
                 .discardPile(human.discardPileSize())
                 .drawPile(human.drawPileSize())
-                .general(human.getGeneral().toAttributes())
-                .defenders(toViews(table.getByArea(Area.DEFENDERS)))
-                .generators(toViews(table.getByArea(Area.GENERATORS)))
-                .enemies(toViews(table.getByArea(Area.ENEMIES)))
+//                .general(human.getGeneral().toAttributes())
+//                .defenders(toViews(table.getByArea(Area.DEFENDERS)))
+//                .generators(toViews(table.getByArea(Area.GENERATORS)))
+//                .enemies(toViews(table.getByArea(Area.ENEMIES)))
+                .table(toViews(table.getCards()))
                 .enemyDraw(enemy.getDeck().peekFirst().toAttributes())
+                .energy(human.getEnergy())
                 .build();
     }
 

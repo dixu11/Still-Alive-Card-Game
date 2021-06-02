@@ -1,5 +1,7 @@
 package pl.dixu.sa.game.view.model;
 
+import pl.dixu.sa.game.cards.general.Area;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.TreeMap;
 public class CardAttributes {
 
     public static final int CHARACTERS = 12;
-    public static final int SIGNATURE_LINES = 3;
+    public static final int SIGNATURE_LINES = 4;
 
     private Map<String, String> attributes = new TreeMap<>();
 
@@ -44,7 +46,7 @@ public class CardAttributes {
     }
 
     public boolean dontShowThisAttribute(String attribute) {
-        List<String> dontShow = List.of("area", "enemy", "event", "maxHp", "actualHp","name");
+        List<String> dontShow = List.of("area", "enemy", "event", "maxHp", "actualHp","name","id");
         List<String> dontShowIf0 = List.of("attack", "block","lvl");
         List<String> dontShowIfEnemy = List.of("cost");
         return dontShow.contains(attribute) ||
@@ -88,5 +90,9 @@ public class CardAttributes {
 
     public int getId() {
         return Integer.parseInt(attributes.get("id"));
+    }
+
+    public Area getArea() {
+        return attributes.containsKey("area") ? Area.valueOf(attributes.get("area")): Area.UNKNOWN;
     }
 }

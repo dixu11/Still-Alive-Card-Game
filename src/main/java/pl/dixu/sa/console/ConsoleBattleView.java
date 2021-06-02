@@ -1,5 +1,6 @@
 package pl.dixu.sa.console;
 
+import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.model.BattleView;
 
@@ -60,17 +61,26 @@ public class ConsoleBattleView extends BattleView {
         printSignatures(List.of(NO_SLOT, battle.shopCard1, battle.shopCard2, battle.enemyDraw, ENEMIES_LEFT, NO_SLOT));
         printLine(List.of(asTitle("Generator"), EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE, asTitle("Enemy")));
         printLine(emptyLine(COLUMNS));
-        printSignatures(List.of(EMPTY_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, EMPTY_SLOT));
+        printSignatures(List.of(getCardByArea(Area.GENERATORS,0), NO_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, getCardByArea(Area.ENEMIES,0)));
         printLine(emptyLine(COLUMNS));
         printLine(List.of(asTitle("Generator"), asTitle("General"),asTitle("Defender"),asTitle("Defender"),asTitle("Defender"), asTitle("Enemy")));
         printLine(emptyLine(COLUMNS));
-        printSignatures(List.of(EMPTY_SLOT, battle.general, EMPTY_SLOT, EMPTY_SLOT, EMPTY_SLOT, EMPTY_SLOT));
+        printSignatures(List.of(getCardByArea(Area.GENERATORS,1), getCardByArea(Area.GENERAL,0),
+                getCardByArea(Area.DEFENDERS,0), getCardByArea(Area.DEFENDERS,1), getCardByArea(Area.DEFENDERS,2),
+                getCardByArea(Area.ENEMIES,1)));
         printLine(emptyLine(COLUMNS));
         printLine(List.of(asTitle("Generator"), EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE,EMPTY_TITLE, asTitle("Enemy")));
         printLine(emptyLine(COLUMNS));
-        printSignatures(List.of(EMPTY_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, EMPTY_SLOT));
+        printSignatures(List.of(getCardByArea(Area.GENERATORS,2), NO_SLOT, NO_SLOT, NO_SLOT, NO_SLOT, getCardByArea(Area.ENEMIES,2)));
         printLine(emptyLine(COLUMNS));
         System.out.println();
+    }
+
+    private CardAttributes getCardByArea(Area area, int index) {
+        List<CardAttributes> cards = battle.table.stream()
+                .filter(c -> c.getArea() == area)
+                .collect(Collectors.toList());
+        return index < cards.size() ? cards.get(index) : EMPTY_SLOT;
     }
 
     private void printLine(List<String> titles){

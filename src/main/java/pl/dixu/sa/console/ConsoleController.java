@@ -10,6 +10,7 @@ import pl.dixu.sa.game.view.presenter.PlayerDecision;
 import java.util.List;
 import java.util.Scanner;
 
+import static pl.dixu.sa.console.DecisionType.*;
 import static pl.dixu.sa.console.Utils.shortPrint;
 
 public class ConsoleController {
@@ -26,12 +27,17 @@ public class ConsoleController {
     }
 
     public void playRound() {
+        printStats();
         printCards(hand);
         printOtherOptions();
         System.out.println("Którą opcję wybierasz?");
         PlayerDecision playerDecision = readDecision();
         System.out.println("Wykonujesz decycje: " + playerDecision);
         controller.executeDecision(playerDecision);
+    }
+
+    private void printStats() {
+        shortPrint("Twoja energia: " + battleDTO.energy);
     }
 
     private void printCards(List<CardAttributes> hand) {
@@ -42,12 +48,12 @@ public class ConsoleController {
     }
 
     private void printOtherOptions() {
-        shortPrint(DecisionType.SHOP_BUY_1.getShortcut()+ ": kup Generator/ulepszenie");
-        shortPrint("o: kup Obrońcę/ulepszenie"); //todo
-        shortPrint("d: Dociągnij kartę za 1 energii");
-        shortPrint("z: Zakończ turę");
-        shortPrint("o: Opisy kart");
-        shortPrint("w: Zakończ grę");
+        shortPrint(SHOP_BUY_1.getShortcut()+ ": kup Generator/ulepszenie");
+        shortPrint(SHOP_BUY_2.getShortcut()+": kup Obrońcę/ulepszenie");
+        shortPrint(DRAW.getShortcut()+": Dociągnij kartę za 1 energii");
+        shortPrint(END_TURN.getShortcut()+ ": Zakończ turę");
+        shortPrint(CARD_INFO.getShortcut()+ ": Opisy kart");
+        shortPrint(END_GAME.getShortcut()+ ": Zakończ grę");
     }
 
     private PlayerDecision readDecision() {

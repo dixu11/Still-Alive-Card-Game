@@ -22,13 +22,13 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         displayGame();
         print("Na stół trafia:");
         character.consoleDisplay();
-        waitForEnter();
+        //waitForEnter();
     }
 
     @Override
     public void showStartBattle() {
         printNoLine("Rozpoczyna się bitwa!");
-        waitForEnter();
+       // waitForEnter();
     }
 
     @Override

@@ -4,7 +4,7 @@ import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
 
-public class Shop extends BattleComponent{
+public class Shop extends BattleComponent {
 
     private Deck<CharacterCard> generators;
     private Deck<CharacterCard> defenders;
@@ -23,15 +23,14 @@ public class Shop extends BattleComponent{
     }
 
     public EventCard buyCard(int slotId, int energy) {
-        //todo REFACTOR TO SLOT NOT CARD ID
         Deck<CharacterCard> correctDeck;
         CharacterCard shopCard;
-        if (generators.peekFirst().getId() == slotId) {
+        if (slotId == 0) {
             correctDeck = generators;
-        } else if (defenders.peekFirst().getId() == slotId) {
+        } else if (slotId == 1) {
             correctDeck = defenders;
         } else {
-            throw new IllegalStateException("Presenter asks about not existing card id: " + slotId);
+            throw new IllegalStateException("Presenter asks about not existing slot id: " + slotId);
         }
         shopCard = correctDeck.peekFirst();
         EventCard eventCard = shopCard.toEventCard();

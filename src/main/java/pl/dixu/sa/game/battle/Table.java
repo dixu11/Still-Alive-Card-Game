@@ -41,4 +41,8 @@ public class Table extends BattleComponent{
                 .filter(c->c.getArea() == area)
                 .collect(Collectors.toList());
     }
+
+    public List<CharacterCard> getCards() {
+        return playedCards;
+    }
 }
