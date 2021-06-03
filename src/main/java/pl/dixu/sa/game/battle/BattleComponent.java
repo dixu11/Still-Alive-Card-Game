@@ -1,5 +1,6 @@
 package pl.dixu.sa.game.battle;
 
+import pl.dixu.sa.game.view.CommandClient;
 import pl.dixu.sa.game.view.model.Viewable;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 public class BattleComponent implements Viewable {
 
     protected BattleMediator mediator;
+    protected CommandClient client;
 
     private static List<BattleComponent> allBattleComponentsInGame = new ArrayList<>();
 
@@ -22,7 +24,18 @@ public class BattleComponent implements Viewable {
         }
     }
 
+    public static void addClientToAllComponents(CommandClient client) {
+        for (BattleComponent component : allBattleComponentsInGame) {
+            component.setClient(client);
+        }
+    }
+
+
     public void setMediator(BattleMediator mediator) {
         this.mediator = mediator;
+    }
+
+    public void setClient(CommandClient client) {
+        this.client = client;
     }
 }

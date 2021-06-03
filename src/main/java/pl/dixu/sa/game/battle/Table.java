@@ -34,6 +34,7 @@ public class Table extends BattleComponent{
 
     public void spawn(CharacterCard character) {
         playedCards.add(character);
+        client.showSpawnCharacter(character);
     }
 
    public List<CharacterCard> getByArea(Area area){

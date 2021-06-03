@@ -17,7 +17,7 @@ public class Human extends Player implements PlayerController {
     private Deck<EventCard> discardPile = new Deck<>();
 
     private CharacterCard general;
-    private volatile int energy = 0;
+    private int energy = 0;
 
     public Human(Deck<EventCard> drawPile, CharacterCard general) {
         this.drawPile = drawPile;
@@ -42,7 +42,7 @@ public class Human extends Player implements PlayerController {
         int cost = eventCard.getCost();
         changeEnergy(-cost);
         hand.add(eventCard);
-        mediator.showNewCard(eventCard);
+        client.showNewCard(eventCard);
     }
 
     @Override
@@ -57,6 +57,7 @@ public class Human extends Player implements PlayerController {
     @Override
     public void endTurn() {
         mediator.endTurn();
+        client.showEndTurn();
     }
 
     @Override
@@ -73,14 +74,14 @@ public class Human extends Player implements PlayerController {
         List<EventCard> cards = drawPile.draw(count);
         int cardsLeft = count - cards.size();
         hand.addAll(cards);
-        mediator.showDraw(cards);
+        client.showDraw(cards);
         if (cardsLeft == 0) return;
         discardPile.shuffle();
-        mediator.showShuffle();
+        client.showShuffle();
         drawPile.add(discardPile);
         List<EventCard> nextCards = drawPile.draw(cardsLeft);
         hand.addAll(nextCards);
-        mediator.showDraw(cards);
+        client.showDraw(cards);
     }
 
     void playGeneral() {
@@ -89,7 +90,7 @@ public class Human extends Player implements PlayerController {
 
     public void changeEnergy(int newEnergy) {
         energy += newEnergy;
-        mediator.showEnergyChange(newEnergy);
+        client.showEnergyChange(newEnergy);
     }
 
     @Override

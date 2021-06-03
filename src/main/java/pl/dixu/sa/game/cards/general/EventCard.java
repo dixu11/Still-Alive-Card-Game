@@ -16,7 +16,7 @@ public class EventCard extends Card{
     }
 
     public void play(Player owner) {
-        mediator.showCardPlayed(owner,this);
+        client.showCardPlayed(owner,this);
         executeEffects();
     }
 

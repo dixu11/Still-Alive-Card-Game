@@ -9,76 +9,44 @@ import java.util.List;
 
 public class BattleMediator {
 
-    private CommandClient client;
-
     private Battle battle;
     private Shop shop;
     private Human human;
     private Table table;
     private Enemy enemy;
 
-    public BattleMediator(Battle battle,CommandClient client) {
+    public BattleMediator() {
+    }
+
+    public void setBattle(Battle battle) {
         this.battle = battle;
-        this.shop =battle.getShop();
+        this.shop = battle.getShop();
         this.human = battle.getHuman();
         this.table = battle.getTable();
         this.enemy = battle.getEnemy();
-        this.client = client;
     }
 
-    //pure logic
     public int getTurnNumber() {
         return battle.getTurnNr();
     }
 
-    //logic and presentation
-    public void spawnCharacter(CharacterCard character) {
-        table.spawn(character);
-        client.spawnCharacter(character);
-    }
-
-    public void showEnergyChange(int energy) {
-        client.changeEnergy(energy);
-    }
-
-    //pure presentation
-    public void showDraw(List<? extends Card> cards) {
-        client.showDraw(cards);
-    }
-    public void startBattle() {
-        client.startBattle(battle);
-    }
-
-    public void showShuffle() {
-        client.showShuffle();
-    }
-
-    public void showCardPlayed(Player owner, EventCard card) {
-        client.showCardPlayed(owner,card);
+    public void endTurn() {
+        battle.endTurn();
     }
 
     public EventCard buyShopCard(int slotId, int energy) {
-        return shop.buyCard(slotId,energy);
-    }
-
-    public void showNewCard(EventCard card) {
-        client.showNewCard(card);
+        return shop.buyCard(slotId, energy);
     }
 
     public void assignTargetForActiveCard(int cardId) {
         table.assignTargetForActiveCard(cardId);
     }
 
-    public void endTurn() {
-        battle.endTurn();
-        client.showEndTurn();
-    }
-
-    public void playRound() {
-        client.playRound(battle);
-    }
-
     public void changeEnergy(int newEnergy) {
         human.changeEnergy(newEnergy);
+    }
+
+    public void spawnCharacter(CharacterCard character) {
+        table.spawn(character);
     }
 }

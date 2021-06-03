@@ -1,5 +1,6 @@
 package pl.dixu.sa.game.core;
 
+import pl.dixu.sa.game.battle.BattleMediator;
 import pl.dixu.sa.game.view.presenter.PresenterFactory;
 import pl.dixu.sa.game.view.presenter.PresenterThread;
 import pl.dixu.sa.game.view.CommandClient;
@@ -20,8 +21,9 @@ public class GameFactory {
     }
 
     public Gameplay build() {
+        BattleMediator mediator = new BattleMediator();
         CommandClient client = new CommandClient(presenterThread, presenterFactory);
-        return new Gameplay(client);
+        return new Gameplay(mediator, client);
     }
 
 }

@@ -2,7 +2,6 @@ package pl.dixu.sa.game.battle;
 
 import pl.dixu.sa.game.cards.factory.CharacterCardFactory;
 import pl.dixu.sa.game.cards.factory.EventCardFactory;
-import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.view.model.CardAttributes;
@@ -11,16 +10,16 @@ import pl.dixu.sa.game.view.CommandClient;
 import pl.dixu.sa.game.view.presenter.BattleController;
 import pl.dixu.sa.game.view.presenter.PlayerDecision;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 
 public class Battle implements BattleController {
 
-    private BattleMediator battleMediator;
+    private BattleMediator mediator;
+    private CommandClient client;
 
     private Shop shop;
     private Human human;
@@ -32,23 +31,35 @@ public class Battle implements BattleController {
     private int turnCounter = 0;
     private boolean playerTurn = false;
 
-    public Battle(CommandClient client) {
-        createComponents(client);
+    private List<CharacterCard> testStartCharacters = new ArrayList<>();//todo for test state
+
+    public Battle(BattleMediator mediator,CommandClient client) {
+        createComponents(mediator,client);
     }
 
-    private void createComponents(CommandClient client) {
+    private void createComponents(BattleMediator mediator,CommandClient client) {
+        this.mediator = mediator;
+        this.client = client;
+        //create factories
         CharacterCardFactory characterCardFactory = new CharacterCardFactory();
         EventCardFactory eventCardFactory = new EventCardFactory(characterCardFactory);
         Deck<EventCard> enemyDeck = eventCardFactory.createEnemyDeck();
+        //create battle components
         enemy = new Enemy(enemyDeck);
         human = new Human(eventCardFactory.createStartingDeck(), characterCardFactory.createGeneral());
         shop = new Shop(characterCardFactory.createStartingGenerators(), characterCardFactory.createStartingDefenders());
         table = new Table();
-        table.spawn(characterCardFactory.createGenerator()); // for tests
-        table.spawn(characterCardFactory.createDefender()); // for tests
-        battleMediator = new BattleMediator(this, client);
-        BattleComponent.addMediatorToAllComponents(battleMediator);
         decisions = new LinkedBlockingQueue<>();
+        //set components to mediator
+        mediator.setBattle(this);
+        //set mediator and clients to all components
+        CharacterCard generator = characterCardFactory.createGenerator();
+        CharacterCard defender = characterCardFactory.createDefender();
+        testStartCharacters.add(generator);
+        testStartCharacters.add(defender);
+        BattleComponent.addClientToAllComponents(client);
+        BattleComponent.addMediatorToAllComponents(this.mediator);
+        //set mediator and clients to all components
     }
 
     public void begin() {
@@ -57,7 +68,10 @@ public class Battle implements BattleController {
     }
 
     private void setupPhase() {
-        battleMediator.startBattle();
+        client.startBattle(this);
+        for (CharacterCard testStartCharacter : testStartCharacters) { //todo for tests
+            table.spawn(testStartCharacter);
+        }
         human.playGeneral();
     }
 
@@ -75,10 +89,10 @@ public class Battle implements BattleController {
 
     private void play() {
         playerTurn = true;
-        battleMediator.playRound();
+        client.playRound(this);
         while (playerTurn) {
             executeDecision();
-            battleMediator.playRound();
+            client.playRound(this);
         }
     }
 

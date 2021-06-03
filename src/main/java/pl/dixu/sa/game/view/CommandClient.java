@@ -22,7 +22,7 @@ public class CommandClient {
         battlePresenter = presenterFactory.getBattlePresenter();
     }
 
-    public void spawnCharacter(CharacterCard card) {
+    public void showSpawnCharacter(CharacterCard card) {
         presenter.queue(createCommand(p->p.spawn(card.toAttributes())));
     }
 
@@ -30,7 +30,7 @@ public class CommandClient {
         presenter.queue(createCommand(p->p.startBattle(battle)));
     }
 
-    public void changeEnergy(int energy) {
+    public void showEnergyChange(int energy) {
         presenter.queue(createCommand(p->p.changeEnergy(energy)));
     }
 
@@ -67,4 +67,5 @@ public class CommandClient {
                 .map(c -> c.toAttributes())
                 .collect(Collectors.toList());
     }
+
 }
