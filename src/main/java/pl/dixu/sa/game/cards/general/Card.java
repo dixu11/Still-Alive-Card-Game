@@ -1,6 +1,5 @@
 package pl.dixu.sa.game.cards.general;
 
-import org.w3c.dom.Attr;
 import pl.dixu.sa.game.battle.BattleComponent;
 import pl.dixu.sa.game.cards.effect.BattleEffect;
 import pl.dixu.sa.game.cards.effect.EffectType;
@@ -55,14 +54,10 @@ public class Card extends BattleComponent {
     @Override
     public CardAttributes toAttributes() {
         CardAttributes attr = super.toAttributes()
-                .addAttribute("name", name)
-                .addAttribute("id", id + "");
+                .addAttribute("id", id + "")
+                .addAttribute("name", name);
         effects.forEach(attr::add);
         return attr;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getId() {
@@ -73,5 +68,9 @@ public class Card extends BattleComponent {
         return cards.stream()
                 .filter(c -> c.getId() == id)
                 .findAny();
+    }
+
+    public String getName() {
+        return name;
     }
 }

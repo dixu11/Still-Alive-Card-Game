@@ -1,7 +1,6 @@
 package pl.dixu.sa.console.decision;
 
 import pl.dixu.sa.console.Utils;
-import pl.dixu.sa.game.view.model.BattleDTO;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.presenter.PlayerController;
 

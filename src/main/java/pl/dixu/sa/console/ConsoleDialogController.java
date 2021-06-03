@@ -1,6 +1,8 @@
 package pl.dixu.sa.console;
 
 import pl.dixu.sa.console.decision.DecisionFactory;
+import pl.dixu.sa.game.cards.effect.TargetableEffect;
+import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.view.model.BattleDTO;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.presenter.BattleController;
@@ -11,19 +13,20 @@ import java.util.List;
 import java.util.Scanner;
 
 import static pl.dixu.sa.console.DecisionType.*;
+import static pl.dixu.sa.console.Utils.print;
 import static pl.dixu.sa.console.Utils.shortPrint;
 
-public class ConsoleController {
+public class ConsoleDialogController {
 
     private BattleDTO battleDTO;
     private List<CardAttributes> hand;
-    private BattleController controller;
+    private BattleController battleController;
     private DecisionFactory decisionFactory = new DecisionFactory();
 
-    public ConsoleController(BattleController controller) {
-        battleDTO = controller.toDTO();
+    public ConsoleDialogController(BattleController battleController) {
+        battleDTO = battleController.toDTO();
         hand = battleDTO.hand;
-        this.controller = controller;
+        this.battleController = battleController;
     }
 
     public void playRound() {
@@ -33,7 +36,7 @@ public class ConsoleController {
         System.out.println("Którą opcję wybierasz?");
         PlayerDecision playerDecision = readDecision();
         System.out.println("Wykonujesz decycje: " + playerDecision);
-        controller.executeDecision(playerDecision);
+        battleController.executeDecision(playerDecision);
     }
 
     private void printStats() {
@@ -110,5 +113,31 @@ public class ConsoleController {
 
     private void executeDecision() {
 
+    }
+
+    public int chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
+        print("Wybierz cel efektu " + effect.toAttributes().name());
+       List<CardAttributes> targets = battleDTO.getByAreas(possibleTargets);
+        for (int i = 0; i <targets.size(); i++) {
+            shortPrint(i + 1 + ". " + targets.get(0).name());
+        }
+        int input = readInt(targets.size());
+        CardAttributes target = targets.get(input - 1);
+        return target.getId();
+    }
+
+    private int readInt(int max) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            int input = scanner.nextInt();
+            if (input > max || input <= 0) {
+                shortPrint("Prawidłowy zakres: " + 1 + " - " + max);
+                input = readInt(max);
+            }
+            return input;
+        } catch (IllegalArgumentException e) {
+            shortPrint("Należy podać liczbę!");
+            return readInt(max);
+        }
     }
 }

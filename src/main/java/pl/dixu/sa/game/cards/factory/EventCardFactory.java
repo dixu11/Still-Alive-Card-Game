@@ -1,6 +1,7 @@
 package pl.dixu.sa.game.cards.factory;
 
 import pl.dixu.sa.game.battle.Deck;
+import pl.dixu.sa.game.cards.effect.AttackEffect;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.cards.effect.BattleEffect;
 import pl.dixu.sa.game.cards.effect.SpawnCharacterEffect;
@@ -42,7 +43,9 @@ public class EventCardFactory {
     }
 
     public EventCard createAttack() {
-       return new EventCard(1, "Attack");
+        EventCard eventCard = new EventCard(1, "Attack");
+        eventCard.addEffect(new AttackEffect());
+        return eventCard;
     }
 
     public EventCard createInvest() {

@@ -2,6 +2,8 @@ package pl.dixu.sa.game.view;
 
 import pl.dixu.sa.game.battle.Battle;
 import pl.dixu.sa.game.battle.Player;
+import pl.dixu.sa.game.cards.effect.TargetableEffect;
+import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.cards.general.CharacterCard;
@@ -23,19 +25,30 @@ public class CommandClient {
     }
 
     public void showSpawnCharacter(CharacterCard card) {
-        presenter.queue(createCommand(p->p.spawn(card.toAttributes())));
+        presenter.queue(createCommand(p -> p.spawn(card.toAttributes())));
     }
 
-    public void startBattle(Battle battle) {
-        presenter.queue(createCommand(p->p.startBattle(battle)));
+    public void playRound() {
+        presenter.queue(createCommand(BattlePresenter::playRound));
+    }
+
+    public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
+        presenter.queue(createCommand(p -> {
+            int target = p.chooseTarget(effect, possibleTargets);
+            effect.setTarget(target);
+        }));
+    }
+
+    public void startBattle(BattleController controller) {
+        presenter.queue(createCommand(p -> p.setupBattle(controller)));
     }
 
     public void showEnergyChange(int energy) {
-        presenter.queue(createCommand(p->p.changeEnergy(energy)));
+        presenter.queue(createCommand(p -> p.changeEnergy(energy)));
     }
 
     public void showDraw(List<? extends Card> cards) {
-        presenter.queue(createCommand(p->p.showDraw(cards)));
+        presenter.queue(createCommand(p -> p.showDraw(cards)));
     }
 
     public void showShuffle() {
@@ -43,11 +56,11 @@ public class CommandClient {
     }
 
     public void showCardPlayed(Player owner, EventCard card) {
-        presenter.queue(createCommand(p-> p.showCardPlayed(owner,card)));
+        presenter.queue(createCommand(p -> p.showCardPlayed(owner, card)));
     }
 
     public void showNewCard(EventCard card) {
-        presenter.queue(createCommand(p-> p.showNewCard(card)));
+        presenter.queue(createCommand(p -> p.showNewCard(card)));
     }
 
     public void showEndTurn() {
@@ -55,11 +68,7 @@ public class CommandClient {
     }
 
     private BattleCommand createCommand(BattlePresenterAnimation animation) {
-        return new BattleCommand(battlePresenter,animation);
-    }
-
-    public void playRound(BattleController battleController) {
-        presenter.queue(createCommand(presenter1 -> presenter1.playRound(battleController)));
+        return new BattleCommand(battlePresenter, animation);
     }
 
     private List<CardAttributes> toAttributes(List<? extends Card> cards) {
@@ -67,5 +76,4 @@ public class CommandClient {
                 .map(c -> c.toAttributes())
                 .collect(Collectors.toList());
     }
-
 }

@@ -1,11 +1,8 @@
 package pl.dixu.sa.game.battle;
 
-import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
-import pl.dixu.sa.game.view.CommandClient;
-
-import java.util.List;
+import pl.dixu.sa.game.view.presenter.BattleController;
 
 public class BattleMediator {
 
@@ -38,15 +35,15 @@ public class BattleMediator {
         return shop.buyCard(slotId, energy);
     }
 
-    public void assignTargetForActiveCard(int cardId) {
-        table.assignTargetForActiveCard(cardId);
-    }
-
     public void changeEnergy(int newEnergy) {
         human.changeEnergy(newEnergy);
     }
 
     public void spawnCharacter(CharacterCard character) {
         table.spawn(character);
+    }
+
+    public CharacterCard getCharacterOnTableById(int id) {
+        return table.getById(id);
     }
 }

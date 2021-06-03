@@ -60,11 +60,6 @@ public class Human extends Player implements PlayerController {
         client.showEndTurn();
     }
 
-    @Override
-    public void assignTarget(int cardId) {
-        mediator.assignTargetForActiveCard(cardId);
-    }
-
     public void drawCards() {
         //todo what if deck is less than 5?
         drawCards(DRAW_COUNT);

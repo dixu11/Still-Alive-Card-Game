@@ -1,6 +1,7 @@
 package pl.dixu.sa.game.battle;
 
 import pl.dixu.sa.game.view.CommandClient;
+import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.model.Viewable;
 
 import java.util.ArrayList;
@@ -38,4 +39,5 @@ public class BattleComponent implements Viewable {
     public void setClient(CommandClient client) {
         this.client = client;
     }
+
 }

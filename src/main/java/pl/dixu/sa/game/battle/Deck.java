@@ -1,7 +1,6 @@
 package pl.dixu.sa.game.battle;
 
 import pl.dixu.sa.game.cards.general.Card;
-import pl.dixu.sa.game.cards.general.EventCard;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,10 +10,12 @@ public class Deck<T extends Card> extends BattleComponent{
     private LinkedList<T> cards = new LinkedList<>();
 
     public Deck(Collection<T> cards) {
+        super();
         this.cards.addAll(cards);
     }
 
     public Deck() {
+        super();
     }
 
     public List<T> draw(int drawCount) {

@@ -1,6 +1,5 @@
 package pl.dixu.sa.game.battle;
 
-import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
 
@@ -10,6 +9,7 @@ public class Shop extends BattleComponent {
     private Deck<CharacterCard> defenders;
 
     Shop(Deck<CharacterCard> generators, Deck<CharacterCard> defenders) {
+        super();
         this.generators = generators;
         this.defenders = defenders;
     }

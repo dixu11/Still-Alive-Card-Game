@@ -1,8 +1,10 @@
 package pl.dixu.sa.game.view.model;
 
 import lombok.Builder;
+import pl.dixu.sa.game.cards.general.Area;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 public  class BattleDTO { //don't need encapsulation for this data structure :)
@@ -19,5 +21,11 @@ public  class BattleDTO { //don't need encapsulation for this data structure :)
     public final int drawPile;
     public final CardAttributes enemyDraw;
     public final int energy;
+
+    public List<CardAttributes> getByAreas(List<Area> possibleAreas) {
+        return table.stream()
+                .filter(card -> possibleAreas.contains(card.getArea()))
+                .collect(Collectors.toList());
+    }
 
 }

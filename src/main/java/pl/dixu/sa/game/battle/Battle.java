@@ -89,10 +89,10 @@ public class Battle implements BattleController {
 
     private void play() {
         playerTurn = true;
-        client.playRound(this);
+        client.playRound();
         while (playerTurn) {
             executeDecision();
-            client.playRound(this);
+            client.playRound();
         }
     }
 

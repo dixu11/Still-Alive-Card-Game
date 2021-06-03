@@ -9,6 +9,4 @@ public interface PlayerController {
     void buyDraw();
 
     void endTurn();
-
-    void assignTarget(int cardId);
 }

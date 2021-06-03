@@ -1,6 +1,7 @@
 package pl.dixu.sa.game.cards.effect;
 
 public class GenerateHeroEffect extends GenerateEffect{
+
     @Override
     protected int energyThisTurn() {
         int turn = mediator.getTurnNumber();

@@ -2,20 +2,34 @@ package pl.dixu.sa.console;
 
 import pl.dixu.sa.console.decision.DecisionFactory;
 import pl.dixu.sa.game.battle.Player;
+import pl.dixu.sa.game.cards.effect.TargetableEffect;
+import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.view.model.CardAttributes;
-import pl.dixu.sa.game.view.presenter.BattleController;
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
 
 import java.util.List;
-import java.util.Scanner;
 
 import static pl.dixu.sa.console.Utils.*;
 
 public class ConsoleBattlePresenter extends BattlePresenter {
     private ConsoleBattleView consoleGameView = new ConsoleBattleView();
     private DecisionFactory decisionFactory = new DecisionFactory();
+    private ConsoleDialogController consoleDialogController;
+
+
+
+    @Override
+    public void onBattleSetup() {
+        consoleDialogController = new ConsoleDialogController(battleLogicController);
+    }
+
+    @Override
+    public void showStartBattle() {
+        printNoLine("Rozpoczyna się bitwa!");
+        // waitForEnter();
+    }
 
     @Override
     public void spawn(CardAttributes character) {
@@ -23,12 +37,6 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         print("Na stół trafia:");
         character.consoleDisplay();
         //waitForEnter();
-    }
-
-    @Override
-    public void showStartBattle() {
-        printNoLine("Rozpoczyna się bitwa!");
-       // waitForEnter();
     }
 
     @Override
@@ -45,11 +53,15 @@ public class ConsoleBattlePresenter extends BattlePresenter {
 
 
     @Override
-    public void playRound(BattleController battleController) {
+    public void playRound() {
         waitForEnter();
         displayGame();
-        ConsoleController consoleController = new ConsoleController(battleController);
-        consoleController.playRound();
+        consoleDialogController.playRound();
+    }
+
+    @Override
+    public int chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
+        return consoleDialogController.chooseTarget(effect,possibleTargets);
     }
 
     @Override
@@ -84,25 +96,8 @@ public class ConsoleBattlePresenter extends BattlePresenter {
         System.out.println("Zakończyłeś turę");
     }
 
-
-    //todo refactor
-    public void playGeneral(CardAttributes general) {
-        printNoLine("Naciśnij enter aby rozpocząć");
-        waitForEnter();
-        displayGame();
-        print("Zagrywasz kartę generała:");
-        general.consoleDisplay();
-        waitForEnter();
-    }
-    public void showEnemyEvent(CardAttributes event) {
-        displayGame();
-        print((event.isEnemy() ? "Wróg zagrywa " : "Zagrywasz ") + "kartę ");
-        event.consoleDisplay();
-        waitForEnter();
-    }
-
     private void displayGame() {
-        consoleGameView.setBattle(battle.toDTO());
+        consoleGameView.setBattle(battleLogicController.toDTO());
         consoleGameView.display();
     }
 

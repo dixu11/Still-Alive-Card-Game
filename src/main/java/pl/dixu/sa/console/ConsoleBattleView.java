@@ -110,8 +110,9 @@ public class ConsoleBattleView extends BattleView {
     }
 
     private String asTitle(String text) {
+        //todo refactor after names
         String shortened = text.substring(0, Math.min(text.length(), CHARACTERS));
-        return " ".repeat(( CHARACTERS- text.length())/2) + shortened+" ".repeat(( CHARACTERS- text.length()+1)/2); //todo refactor + reuse
+        return " ".repeat((CHARACTERS - text.length()) / 2) + shortened + " ".repeat((CHARACTERS - text.length() + 1) / 2); //todo refactor + reuse
     }
 
     private String emptyTitle() {
