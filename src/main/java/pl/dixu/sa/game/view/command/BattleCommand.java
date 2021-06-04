@@ -2,7 +2,7 @@ package pl.dixu.sa.game.view.command;
 
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
 
-public class BattleCommand  implements Command{
+public class BattleCommand implements Command {
     private BattlePresenter presenter;
     private BattlePresenterAnimation animation;
 

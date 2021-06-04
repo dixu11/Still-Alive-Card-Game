@@ -10,6 +10,8 @@ public class AttackEffect extends TargetableEffect {
     @Override
     protected void executeOnTarget(CharacterCard target) {
         System.out.println("Atakuję postać " + target);
+        int lvl = mediator.getDefendersLevel();
+        target.receiveDmg(lvl+2);
     }
 
     @Override

@@ -9,4 +9,6 @@ public interface PlayerController {
     void buyDraw();
 
     void endTurn();
+
+    void executeEffectWithTarget(int id);
 }

@@ -17,7 +17,8 @@ public abstract class TargetableEffect extends BattleEffect{
     @Override
     public void execute() {
         if (target == null) {
-            client.chooseTarget(this, getPossibleTargets());
+            mediator.setHumanConsideredEffect(this);
+            client.chooseTarget(this,getPossibleTargets());
         } else {
             executeOnTarget(target);
         }

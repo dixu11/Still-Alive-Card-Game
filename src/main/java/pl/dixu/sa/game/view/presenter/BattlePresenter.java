@@ -4,10 +4,12 @@ import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.Card;
+import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.view.model.CardAttributes;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 //todo should be split into smaller
 public abstract class BattlePresenter {
@@ -38,7 +40,9 @@ public abstract class BattlePresenter {
 
     public abstract void showEndTurn();
 
-    public abstract void playRound();
+    public abstract void playAction();
 
-    public abstract int chooseTarget(TargetableEffect effect, List<Area> possibleTargets);
+    public abstract void chooseTarget(TargetableEffect effect, List<Area> possibleTargets);
+
+    public abstract void showReceiveDmg(CharacterCard card, int dmg);
 }

@@ -1,6 +1,5 @@
 package pl.dixu.sa.game.view;
 
-import pl.dixu.sa.game.battle.Battle;
 import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Area;
@@ -29,14 +28,11 @@ public class CommandClient {
     }
 
     public void playRound() {
-        presenter.queue(createCommand(BattlePresenter::playRound));
+        presenter.queue(createCommand(BattlePresenter::playAction));
     }
 
     public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
-        presenter.queue(createCommand(p -> {
-            int target = p.chooseTarget(effect, possibleTargets);
-            effect.setTarget(target);
-        }));
+        presenter.queue(createCommand(p -> p.chooseTarget(effect, possibleTargets)));
     }
 
     public void startBattle(BattleController controller) {
@@ -65,6 +61,10 @@ public class CommandClient {
 
     public void showEndTurn() {
         presenter.queue(createCommand(p -> p.showEndTurn()));
+    }
+
+    public void showReceiveDmg(CharacterCard card, int dmg) {
+        presenter.animate(createCommand(p-> p.showReceiveDmg(card,dmg)));
     }
 
     private BattleCommand createCommand(BattlePresenterAnimation animation) {

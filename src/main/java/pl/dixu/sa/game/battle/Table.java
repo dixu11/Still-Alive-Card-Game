@@ -41,4 +41,11 @@ public class Table extends BattleComponent{
                 .findAny()
                 .orElseThrow();
     }
+
+    public int getDefendersLevel() {
+        return getByArea(Area.DEFENDERS)
+                .stream()
+                .mapToInt( CharacterCard::getLvl)
+                .sum();
+    }
 }

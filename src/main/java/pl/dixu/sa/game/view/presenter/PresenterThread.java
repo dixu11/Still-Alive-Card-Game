@@ -2,12 +2,12 @@ package pl.dixu.sa.game.view.presenter;
 
 import pl.dixu.sa.game.view.command.Command;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public final class PresenterThread implements Runnable {
 
-    private BlockingQueue<Command> tasks = new ArrayBlockingQueue<>(10_000);
+    private BlockingQueue<Command> interactions = new LinkedBlockingQueue<>();
     private Thread thread;
 
 
@@ -23,20 +23,25 @@ public final class PresenterThread implements Runnable {
     public void run() {
         for (; ; ) {
             try {
-                Command task = tasks.take();
-                executeTask(task);
+                Command task = interactions.take();
+                executeInteraction(task);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void queue(Command task) {
-        tasks.add(task);
+    public void queue(Command command) {
+        interactions.add(command);
     }
 
-    protected void executeTask(Command task) {
-        task.executePresentation();
+    protected void executeInteraction(Command command) {
+        command.executePresentation();
     }
+
+    public void animate(Command task) {
+        new Thread(() -> task.executePresentation()).start();
+    }
+
 
 }

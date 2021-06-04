@@ -5,6 +5,7 @@ import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.Card;
+import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.presenter.BattlePresenter;
@@ -53,15 +54,20 @@ public class ConsoleBattlePresenter extends BattlePresenter {
 
 
     @Override
-    public void playRound() {
+    public void playAction() {
         waitForEnter();
         displayGame();
-        consoleDialogController.playRound();
+        consoleDialogController.playAction();
     }
 
     @Override
-    public int chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
-        return consoleDialogController.chooseTarget(effect,possibleTargets);
+    public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
+        consoleDialogController.chooseTarget(effect,possibleTargets);
+    }
+
+    @Override
+    public void showReceiveDmg(CharacterCard card, int dmg) {
+        print(card.getName() + " otrzymuje " + dmg + " obrażeń!");
     }
 
     @Override

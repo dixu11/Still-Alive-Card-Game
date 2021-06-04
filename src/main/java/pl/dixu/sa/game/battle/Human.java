@@ -1,5 +1,7 @@
 package pl.dixu.sa.game.battle;
 
+import pl.dixu.sa.game.cards.effect.BattleEffect;
+import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
@@ -17,6 +19,7 @@ public class Human extends Player implements PlayerController {
     private Deck<EventCard> discardPile = new Deck<>();
 
     private CharacterCard general;
+    private TargetableEffect consideredEffect = null;
     private int energy = 0;
 
     public Human(Deck<EventCard> drawPile, CharacterCard general) {
@@ -34,6 +37,16 @@ public class Human extends Player implements PlayerController {
         mediator.changeEnergy(-cost);
         card.play(this);
         hand.remove(card);
+    }
+
+    @Override
+    public void executeEffectWithTarget(int id) {
+        if (consideredEffect == null) {
+            return;
+        }
+        consideredEffect.setTarget(id);
+        consideredEffect.execute();
+        consideredEffect = null;
     }
 
     @Override
@@ -98,7 +111,7 @@ public class Human extends Player implements PlayerController {
     }
 
     public List<EventCard> getHand() {
-        return hand;
+        return new ArrayList<>(hand);
     }
 
     public int discardPileSize() {
@@ -111,5 +124,9 @@ public class Human extends Player implements PlayerController {
 
     public int getEnergy() {
         return energy;
+    }
+
+    public void setConsideredEffect(TargetableEffect targetableEffect) {
+        this.consideredEffect = targetableEffect;
     }
 }

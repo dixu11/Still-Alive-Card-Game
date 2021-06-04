@@ -33,11 +33,11 @@ public class Battle implements BattleController {
 
     private List<CharacterCard> testStartCharacters = new ArrayList<>();//todo for test state
 
-    public Battle(BattleMediator mediator,CommandClient client) {
-        createComponents(mediator,client);
+    public Battle(BattleMediator mediator, CommandClient client) {
+        createComponents(mediator, client);
     }
 
-    private void createComponents(BattleMediator mediator,CommandClient client) {
+    private void createComponents(BattleMediator mediator, CommandClient client) {
         this.mediator = mediator;
         this.client = client;
         //create factories
@@ -89,14 +89,13 @@ public class Battle implements BattleController {
 
     private void play() {
         playerTurn = true;
-        client.playRound();
-        while (playerTurn) {
-            executeDecision();
+        do {
             client.playRound();
-        }
+            executeInteractions();
+        } while (playerTurn);
     }
 
-    private void executeDecision() {
+    private void executeInteractions() {
         try {
             decisions.take().execute(human);
         } catch (InterruptedException e) {

@@ -109,4 +109,9 @@ public class CharacterCard extends Card implements Viewable {
         return eventCard;
     }
 
+    public void receiveDmg(int dmg) {
+        actualHp -= dmg;
+        //todo if died + client raction
+        client.showReceiveDmg(this,dmg);
+    }
 }

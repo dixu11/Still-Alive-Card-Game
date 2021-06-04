@@ -29,7 +29,7 @@ public class ConsoleDialogController {
         this.battleController = battleController;
     }
 
-    public void playRound() {
+    public void playAction() {
         printStats();
         printCards(hand);
         printOtherOptions();
@@ -115,7 +115,7 @@ public class ConsoleDialogController {
 
     }
 
-    public int chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
+    public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
         print("Wybierz cel efektu " + effect.toAttributes().name());
        List<CardAttributes> targets = battleDTO.getByAreas(possibleTargets);
         for (int i = 0; i <targets.size(); i++) {
@@ -123,7 +123,8 @@ public class ConsoleDialogController {
         }
         int input = readInt(targets.size());
         CardAttributes target = targets.get(input - 1);
-        return target.getId();
+        int id = target.getId();
+        battleController.executeDecision(player -> player.executeEffectWithTarget(id));
     }
 
     private int readInt(int max) {

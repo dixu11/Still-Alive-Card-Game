@@ -1,8 +1,12 @@
 package pl.dixu.sa.game.battle;
 
+import pl.dixu.sa.game.cards.effect.TargetableEffect;
+import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.view.presenter.BattleController;
+
+import java.util.List;
 
 public class BattleMediator {
 
@@ -45,5 +49,13 @@ public class BattleMediator {
 
     public CharacterCard getCharacterOnTableById(int id) {
         return table.getById(id);
+    }
+
+    public void setHumanConsideredEffect(TargetableEffect targetableEffect) {
+        human.setConsideredEffect(targetableEffect);
+    }
+
+    public int getDefendersLevel() {
+        return table.getDefendersLevel();
     }
 }
