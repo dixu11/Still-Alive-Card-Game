@@ -1,6 +1,6 @@
 package pl.dixu.sa.game.cards.general;
 
-import pl.dixu.sa.game.cards.effect.BattleEffect;
+import pl.dixu.sa.game.cards.effect.Effect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class Level {
     private int nr;
     private int plusMaxHp;
     private int plusAttack;
-    private List<BattleEffect> battleEffects = new ArrayList<>();
+    private List<Effect> effects = new ArrayList<>();
 
     public Level(int nr, int plusMaxHp, int plusAttack) {
         this.nr = nr;

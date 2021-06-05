@@ -3,11 +3,8 @@ package pl.dixu.sa.game.cards.factory;
 import pl.dixu.sa.game.battle.Deck;
 import pl.dixu.sa.game.cards.effect.AttackEffect;
 import pl.dixu.sa.game.cards.general.EventCard;
-import pl.dixu.sa.game.cards.effect.BattleEffect;
 import pl.dixu.sa.game.cards.effect.SpawnCharacterEffect;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class EventCardFactory {
@@ -43,29 +40,29 @@ public class EventCardFactory {
     }
 
     public EventCard createAttack() {
-        EventCard eventCard = new EventCard(1, "Attack");
+        EventCard eventCard = new EventCard("Attack",1);
         eventCard.addEffect(new AttackEffect());
         return eventCard;
     }
 
     public EventCard createInvest() {
-        return new EventCard(0, "Invest");
+        return new EventCard( "Invest",0);
     }
 
     public EventCard createSupport() {
-        return new EventCard(0, "Support");
+        return new EventCard( "Support",0);
     }
 
     public EventCard createCharge() {
-        return new EventCard(2,  "Charge");
+        return new EventCard("Charge",2);
     }
 
     public EventCard createDefend() {
-        return new EventCard(1, "Defend");
+        return new EventCard( "Defend",1);
     }
 
     public EventCard createSpawnEnemyCard() {
-        EventCard eventCard = new EventCard(0,  "Spawn Enemy");
+        EventCard eventCard = new EventCard(  "Spawn Enemy",0);
         eventCard.addEffect(new SpawnCharacterEffect(characterCardFactory.createBasicEnemy(1)));
         eventCard.setEnemy(true);
         return eventCard;

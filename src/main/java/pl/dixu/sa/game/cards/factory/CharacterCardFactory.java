@@ -1,12 +1,15 @@
 package pl.dixu.sa.game.cards.factory;
 import pl.dixu.sa.game.cards.effect.GenerateHeroEffect;
 import pl.dixu.sa.game.cards.effect.GeneratorStandardEffect;
+import pl.dixu.sa.game.cards.effect.ShopSpawnEffect;
 import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.battle.Deck;
+import pl.dixu.sa.game.cards.general.EventCard;
 import pl.dixu.sa.game.cards.general.Level;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class CharacterCardFactory {
@@ -21,29 +24,37 @@ public class CharacterCardFactory {
                 .addLevels(level);
     }
 
-    public Deck<CharacterCard> createStartingGenerators() {
-        Deck<CharacterCard> deck = new Deck<>();
-        deck.add(createGenerator());
-        deck.add(createGenerator());
-        deck.add(createGenerator());
+    public Deck<EventCard> createStartingGenerators() {
+        Deck<EventCard> deck = new Deck<>();
+        for (int i = 0; i < 9; i++) {
+            deck.add(getAsShopCard(createGenerator()));
+        }
         return deck;
     }
 
-    public Deck<CharacterCard> createStartingDefenders() {
-        Deck<CharacterCard> deck = new Deck<>();
-        deck.add(createDefender());
-        deck.add(createDefender());
-        deck.add(createDefender());
+    public Deck<EventCard> createStartingDefenders() {
+        Deck<EventCard> deck = new Deck<>();
+        for (int i = 0; i < 20; i++) { //todo infinite? or what if runs off?
+            deck.add(getAsShopCard(createDefender()));
+        }
         return deck;
     }
 
     public CharacterCard createGeneral() {
         Queue<Level> levels = new LinkedList<>();
         levels.add(new Level(0, 10, 0));
-        CharacterCard characterCard = new CharacterCard(Area.GENERAL, levels, "General");
+        CharacterCard characterCard = new CharacterCard(Area.GENERAL, levels, "General",2);
         characterCard.addEffect(new GenerateHeroEffect());
         characterCard.levelUp();
         return characterCard;
+    }
+
+    public EventCard getAsShopCard(CharacterCard character) {
+        Area area = character.getArea();
+        ShopSpawnEffect effect = new ShopSpawnEffect(List.of(area,Area.getEmptyFor(area)), character);
+        EventCard eventCard = new EventCard("Play " + character.getName(), 2);
+        eventCard.addEffect(effect);
+        return eventCard;
     }
 
     public CharacterCard createGenerator() {
@@ -52,7 +63,7 @@ public class CharacterCardFactory {
         levels.add(new Level(2));
         levels.add(new Level(3));
         //add heal to max effect
-        CharacterCard characterCard = new CharacterCard(Area.GENERATORS, levels, "Generator");
+        CharacterCard characterCard = new CharacterCard(Area.GENERATORS, levels, "Generator",2);
         characterCard.addEffect(new GeneratorStandardEffect(characterCard));
         characterCard.levelUp();
         return characterCard;

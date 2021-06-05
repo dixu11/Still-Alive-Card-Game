@@ -1,12 +1,8 @@
 package pl.dixu.sa.game.battle;
 
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
-import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.cards.general.CharacterCard;
 import pl.dixu.sa.game.cards.general.EventCard;
-import pl.dixu.sa.game.view.presenter.BattleController;
-
-import java.util.List;
 
 public class BattleMediator {
 
@@ -35,8 +31,8 @@ public class BattleMediator {
         battle.endTurn();
     }
 
-    public EventCard buyShopCard(int slotId, int energy) {
-        return shop.buyCard(slotId, energy);
+    public EventCard getShopCard(int slotId) {
+        return shop.getCard(slotId);
     }
 
     public void changeEnergy(int newEnergy) {

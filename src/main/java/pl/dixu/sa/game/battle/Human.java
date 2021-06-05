@@ -1,6 +1,5 @@
 package pl.dixu.sa.game.battle;
 
-import pl.dixu.sa.game.cards.effect.BattleEffect;
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Card;
 import pl.dixu.sa.game.cards.general.CharacterCard;
@@ -20,6 +19,7 @@ public class Human extends Player implements PlayerController {
 
     private CharacterCard general;
     private TargetableEffect consideredEffect = null;
+    private EventCard consideredCard = null;
     private int energy = 0;
 
     public Human(Deck<EventCard> drawPile, CharacterCard general) {
@@ -30,13 +30,27 @@ public class Human extends Player implements PlayerController {
     @Override
     public void playCard(int cardId) {
         EventCard card = Card.findCardById(hand, cardId).orElseThrow();
+        executePlay(card);
+
+    }
+
+    private void executePlay(EventCard card){
+        consideredCard = card;
+        if (consideredCard.isReady()) {
+            payForCardPlay(card);
+            card.play(this);
+            hand.remove(card);
+        } else {
+            card.prepare();
+        }
+    }
+
+    private void payForCardPlay(EventCard card) {
         int cost = card.getCost();
         if (cost > energy) {
             throw new BattleException("Not enough energy! Card costs " + cost);
         }
         mediator.changeEnergy(-cost);
-        card.play(this);
-        hand.remove(card);
     }
 
     @Override
@@ -51,12 +65,10 @@ public class Human extends Player implements PlayerController {
 
     @Override
     public void buyShopCard(int slotId) {
-        EventCard eventCard = mediator.buyShopCard(slotId, energy);
-        int cost = eventCard.getCost();
-        changeEnergy(-cost);
-        hand.add(eventCard);
-        client.showNewCard(eventCard);
+        EventCard eventCard = mediator.getShopCard(slotId);
+        executePlay(eventCard);
     }
+    //todo no returning shop card?
 
     @Override
     public void buyDraw() {

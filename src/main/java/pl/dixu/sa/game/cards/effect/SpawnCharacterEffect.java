@@ -2,7 +2,7 @@ package pl.dixu.sa.game.cards.effect;
 
 import pl.dixu.sa.game.cards.general.CharacterCard;
 
-public class SpawnCharacterEffect extends BattleEffect {
+public class SpawnCharacterEffect extends Effect {
     private CharacterCard character;
 
     public SpawnCharacterEffect(CharacterCard character) {

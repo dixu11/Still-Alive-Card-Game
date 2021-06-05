@@ -1,6 +1,7 @@
-package pl.dixu.sa.console;
+package pl.dixu.sa.console.view;
 
-import pl.dixu.sa.console.decision.DecisionFactory;
+import pl.dixu.sa.console.interaction.ConsoleDialogController;
+import pl.dixu.sa.console.interaction.DecisionFactory;
 import pl.dixu.sa.game.battle.Player;
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Area;
@@ -49,7 +50,7 @@ public class ConsoleBattlePresenter extends BattlePresenter {
             print("Zagrywasz kartę: ");
         }
         print(card.getName());
-        waitForEnter();
+       // waitForEnter();
     }
 
 

@@ -5,26 +5,26 @@ import pl.dixu.sa.game.cards.general.EventCard;
 
 public class Shop extends BattleComponent {
 
-    private Deck<CharacterCard> generators;
-    private Deck<CharacterCard> defenders;
+    private Deck<EventCard> generators;
+    private Deck<EventCard> defenders;
 
-    Shop(Deck<CharacterCard> generators, Deck<CharacterCard> defenders) {
+   public Shop(Deck<EventCard> generators, Deck<EventCard> defenders) {
         super();
         this.generators = generators;
         this.defenders = defenders;
     }
 
-    public CharacterCard peekFirstGenerator() {
+    public EventCard peekFirstGenerator() {
         return generators.peekFirst();
     }
 
-    public CharacterCard peekFirstDefender() {
+    public EventCard peekFirstDefender() {
         return defenders.peekFirst();
     }
 
-    public EventCard buyCard(int slotId, int energy) {
-        Deck<CharacterCard> correctDeck;
-        CharacterCard shopCard;
+    public EventCard getCard(int slotId) {
+        Deck<EventCard> correctDeck;
+        EventCard shopCard;
         if (slotId == 0) {
             correctDeck = generators;
         } else if (slotId == 1) {
@@ -33,13 +33,6 @@ public class Shop extends BattleComponent {
             throw new IllegalStateException("Presenter asks about not existing slot id: " + slotId);
         }
         shopCard = correctDeck.peekFirst();
-        EventCard eventCard = shopCard.toEventCard();
-        if (eventCard.getCost() > energy) {
-            throw new BattleException("You have not enough energy to buy: " + shopCard.getName());
-        }
-        correctDeck.pollCard();
-        return eventCard;
+        return shopCard;
     }
 }
-
-//todo refactor - slots

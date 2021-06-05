@@ -1,18 +1,17 @@
 package pl.dixu.sa.game.cards.general;
 
 import pl.dixu.sa.game.battle.Player;
+import pl.dixu.sa.game.cards.effect.Effect;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import java.util.Objects;
 
 public class EventCard extends Card{
 
-    private int cost;
     private boolean enemy;
     //value //todo next reason to introduce EnemyEventCard class?
 
-    public EventCard(int cost,  String name) {
-        super(name);
-        this.cost = cost;
+    public EventCard(String name,int cost) {
+        super(name,cost);
     }
 
     public void play(Player owner) {
@@ -47,5 +46,20 @@ public class EventCard extends Card{
 
     public int getCost() {
         return cost;
+    }
+
+    public boolean isReady() {
+        for (Effect effect : effects) {
+            if (!effect.isReady()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void prepare() {
+        for (Effect effect : effects) {
+            effect.prepare();
+        }
     }
 }

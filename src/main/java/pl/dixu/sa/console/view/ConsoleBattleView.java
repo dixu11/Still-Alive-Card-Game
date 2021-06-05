@@ -1,4 +1,4 @@
-package pl.dixu.sa.console;
+package pl.dixu.sa.console.view;
 
 import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.view.model.CardAttributes;
@@ -112,7 +112,7 @@ public class ConsoleBattleView extends BattleView {
     private String asTitle(String text) {
         //todo refactor after names
         String shortened = text.substring(0, Math.min(text.length(), CHARACTERS));
-        return " ".repeat((CHARACTERS - text.length()) / 2) + shortened + " ".repeat((CHARACTERS - text.length() + 1) / 2); //todo refactor + reuse
+        return " ".repeat((CHARACTERS - shortened.length()) / 2) + shortened + " ".repeat((CHARACTERS - shortened.length() + 1) / 2); //todo refactor + reuse
     }
 
     private String emptyTitle() {

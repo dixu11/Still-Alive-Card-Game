@@ -1,7 +1,7 @@
 package pl.dixu.sa.game.cards.general;
 
 import pl.dixu.sa.game.battle.BattleComponent;
-import pl.dixu.sa.game.cards.effect.BattleEffect;
+import pl.dixu.sa.game.cards.effect.Effect;
 import pl.dixu.sa.game.cards.effect.EffectType;
 import pl.dixu.sa.game.view.model.CardAttributes;
 
@@ -14,8 +14,9 @@ public class Card extends BattleComponent {
     private int id;
     protected String name;
     private String dsc; //todo
-    private List<BattleEffect> effects = new ArrayList<>();
+    protected List<Effect> effects = new ArrayList<>();
     private CharacterCard target = null;
+    protected int cost;
     private static int nextId = 1;
 
     { // initialization block triggers before all constructors
@@ -23,27 +24,37 @@ public class Card extends BattleComponent {
     }
 
     public Card() { // for lombok
-        name = "";
+        this("",-1);
     }
 
     public Card(String name) {
-        this.name = name;
+        this(name, -1);
     }
 
-    public void addEffect(BattleEffect effect) {
+    public Card(int cost){
+        this("",cost);
+    }
+
+    public Card(String name,int cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
+    public void addEffect(Effect effect) {
         effects.add(effect);
+        effect.setOwner(this);
     }
 
     public void executeEffects() {
-        for (BattleEffect playBattleEffect : effects) {
-            playBattleEffect.execute();
+        for (Effect playEffect : effects) {
+            playEffect.execute();
         }
     }
 
     public void executeEffects(EffectType type) {
         effects.stream()
                 .filter(e -> e.getType() == type)
-                .forEach(BattleEffect::execute);
+                .forEach(Effect::execute);
     }
 
     public void assignTargetAndTrigger(CharacterCard card) {
@@ -72,5 +83,9 @@ public class Card extends BattleComponent {
 
     public String getName() {
         return name;
+    }
+
+    public void growCost(int cost) {
+        this.cost += cost;
     }
 }

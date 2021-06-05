@@ -2,7 +2,7 @@ package pl.dixu.sa.game.cards.effect;
 
 import pl.dixu.sa.game.view.model.CardAttributes;
 
-public abstract class GenerateEffect extends BattleEffect {
+public abstract class GenerateEffect extends Effect {
 
     public GenerateEffect() {
         super(EffectType.GENERATOR);

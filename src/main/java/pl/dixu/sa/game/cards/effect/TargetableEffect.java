@@ -1,14 +1,13 @@
 package pl.dixu.sa.game.cards.effect;
 
 import pl.dixu.sa.game.cards.general.Area;
-import pl.dixu.sa.game.cards.general.CharacterCard;
 
 import java.util.List;
 
 //decorator
-public abstract class TargetableEffect extends BattleEffect{
+public abstract class TargetableEffect extends Effect {
 
-    private CharacterCard target;
+    protected Target target;
 
     public TargetableEffect() {
         super(EffectType.PLAY);
@@ -16,19 +15,28 @@ public abstract class TargetableEffect extends BattleEffect{
 
     @Override
     public void execute() {
-        if (target == null) {
-            mediator.setHumanConsideredEffect(this);
-            client.chooseTarget(this,getPossibleTargets());
-        } else {
-            executeOnTarget(target);
-        }
+        executeOnTarget(target);
     }
 
-    protected abstract void executeOnTarget(CharacterCard target);
+    @Override
+    public void prepare() {
+        if (target != null) {
+            return;
+        }
+        mediator.setHumanConsideredEffect(this);
+        client.chooseTarget(this, getPossibleTargets());
+    }
+
+    protected abstract void executeOnTarget(Target target);
 
     protected abstract List<Area> getPossibleTargets();
 
-   public void setTarget(int cardId){
-      target = mediator.getCharacterOnTableById(cardId);
-   }
+    public void setTarget(int cardId) {
+        target = mediator.getCharacterOnTableById(cardId);
+    }
+
+    @Override
+    public boolean isReady() {
+        return target != null;
+    }
 }

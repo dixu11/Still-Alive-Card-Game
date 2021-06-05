@@ -3,26 +3,29 @@ package pl.dixu.sa.game.cards.general;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import pl.dixu.sa.game.cards.effect.SpawnCharacterEffect;
+import pl.dixu.sa.game.cards.effect.Target;
 import pl.dixu.sa.game.view.model.CardAttributes;
 import pl.dixu.sa.game.view.model.Viewable;
 
 import java.util.*;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Builder
 @AllArgsConstructor //for lombok builder
-public class CharacterCard extends Card implements Viewable {
+public class CharacterCard extends Card implements Viewable, Target {
 
     private int lvl = 0;
     private int maxHp = 0;
     private int actualHp = 0;
     private int block = 0;
     private int attack = 0;
-    private int cost = -1;
 
     private Area area;
     private Queue<Level> levels;
+
+    static {
+
+    }
 
     public CharacterCard(Area area, Queue<Level> levels, String name) {
         super(name);
@@ -31,7 +34,7 @@ public class CharacterCard extends Card implements Viewable {
     }
 
     public CharacterCard(Area area, Queue<Level> levels, String name, int cost) {
-        super(name);
+        super(name,cost);
         this.area = area;
         this.levels = levels;
         this.cost = cost;
@@ -95,18 +98,23 @@ public class CharacterCard extends Card implements Viewable {
                 '}';
     }
 
+    @Override
+    public CharacterCard toCharacter() {
+        return this;
+    }
+
     public Area getArea() {
         return area;
     }
 
-    public int getLvl() {
-        return lvl;
+    @Override
+    public boolean isEmptySlot() {
+        return false;
     }
 
-    public EventCard toEventCard() {
-        EventCard eventCard = new EventCard(cost,"Play "+ name);
-        eventCard.addEffect(new SpawnCharacterEffect(this));
-        return eventCard;
+
+    public int getLvl() {
+        return lvl;
     }
 
     public void receiveDmg(int dmg) {

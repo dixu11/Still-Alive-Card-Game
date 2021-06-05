@@ -1,6 +1,5 @@
-package pl.dixu.sa.console.decision;
+package pl.dixu.sa.console.interaction;
 
-import pl.dixu.sa.game.view.model.BattleDTO;
 import pl.dixu.sa.game.view.presenter.PlayerDecision;
 
 public abstract class ConsoleDecision implements PlayerDecision {

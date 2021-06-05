@@ -95,4 +95,11 @@ public class CardAttributes {
     public Area getArea() {
         return attributes.containsKey("area") ? Area.valueOf(attributes.get("area")): Area.UNKNOWN;
     }
+
+    @Override
+    public String toString() {
+        return "CardAttributes{" +
+                "attributes=" + attributes +
+                '}';
+    }
 }

@@ -1,4 +1,4 @@
-package pl.dixu.sa.console;
+package pl.dixu.sa.console.interaction;
 
 import java.util.Arrays;
 

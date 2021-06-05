@@ -1,4 +1,4 @@
-package pl.dixu.sa.console.decision;
+package pl.dixu.sa.console.interaction;
 
 import pl.dixu.sa.console.Utils;
 import pl.dixu.sa.game.view.model.CardAttributes;

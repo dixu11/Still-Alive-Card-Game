@@ -1,6 +1,5 @@
-package pl.dixu.sa.console;
+package pl.dixu.sa.console.interaction;
 
-import pl.dixu.sa.console.decision.DecisionFactory;
 import pl.dixu.sa.game.cards.effect.TargetableEffect;
 import pl.dixu.sa.game.cards.general.Area;
 import pl.dixu.sa.game.view.model.BattleDTO;
@@ -12,7 +11,7 @@ import pl.dixu.sa.game.view.presenter.PlayerDecision;
 import java.util.List;
 import java.util.Scanner;
 
-import static pl.dixu.sa.console.DecisionType.*;
+import static pl.dixu.sa.console.interaction.DecisionType.*;
 import static pl.dixu.sa.console.Utils.print;
 import static pl.dixu.sa.console.Utils.shortPrint;
 
@@ -24,12 +23,17 @@ public class ConsoleDialogController {
     private DecisionFactory decisionFactory = new DecisionFactory();
 
     public ConsoleDialogController(BattleController battleController) {
+        this.battleController = battleController;
+        updateData();
+    }
+
+    private void updateData() {
         battleDTO = battleController.toDTO();
         hand = battleDTO.hand;
-        this.battleController = battleController;
     }
 
     public void playAction() {
+        updateData();
         printStats();
         printCards(hand);
         printOtherOptions();
@@ -117,9 +121,9 @@ public class ConsoleDialogController {
 
     public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
         print("Wybierz cel efektu " + effect.toAttributes().name());
-       List<CardAttributes> targets = battleDTO.getByAreas(possibleTargets);
+       List<CardAttributes> targets = battleDTO.getByAreasWithEmptySlots(possibleTargets);
         for (int i = 0; i <targets.size(); i++) {
-            shortPrint(i + 1 + ". " + targets.get(0).name());
+            shortPrint(i + 1 + ". " + targets.get(i).name());
         }
         int input = readInt(targets.size());
         CardAttributes target = targets.get(input - 1);
