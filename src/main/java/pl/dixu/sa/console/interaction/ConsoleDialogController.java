@@ -107,20 +107,8 @@ public class ConsoleDialogController {
         return cardIndex >= 0 && cardIndex <= hand.size();
     }
 
-    private void playCard(String decision) {
-
-    }
-
-    private void playOtherOption(String decision) {
-
-    }
-
-    private void executeDecision() {
-
-    }
-
-    public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {
-        print("Wybierz cel efektu " + effect.toAttributes().name());
+    public void chooseTarget(TargetableEffect effect, List<Area> possibleTargets) {//todo unused arg?
+        print("Wybierz cel efektu ");
        List<CardAttributes> targets = battleDTO.getByAreasWithEmptySlots(possibleTargets);
         for (int i = 0; i <targets.size(); i++) {
             shortPrint(i + 1 + ". " + targets.get(i).name());
