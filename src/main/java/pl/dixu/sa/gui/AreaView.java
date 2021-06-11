@@ -13,6 +13,7 @@ public class AreaView implements Clickable {
     private int x;
     private int y;
     private List<CharacterCardView> cards = new ArrayList<>();
+    private CharacterCardView selected = null;
 
     public AreaView(Area area, boolean horizontal, int slots, int x, int y) {
         this.area = area;
@@ -33,7 +34,7 @@ public class AreaView implements Clickable {
     public void render(Graphics g) {
         for (int i = 0, cardsSize = cards.size(); i < cardsSize; i++) {
             CharacterCardView card = cards.get(i);
-          card.render(g,getCardBounds(i));
+            card.render(g, getCardBounds(i));
         }
     }
 
@@ -55,8 +56,20 @@ public class AreaView implements Clickable {
         System.out.println("Area clicked: " + area);
         for (int i = 0; i < cards.size(); i++) {
             if (getCardBounds(i).contains(x, y)) {
-                cards.get(i).reactToClick(x, y);
+                CharacterCardView newSelected = cards.get(i);
+                if (selected != null && selected != newSelected) {
+                    selected.unselect();
+                }
+                this.selected = newSelected;
+                newSelected.select();
+                break;
             }
+        }
+    }
+
+    public void clearSelection() {
+        for (CharacterCardView card : cards) {
+            card.unselect();
         }
     }
 

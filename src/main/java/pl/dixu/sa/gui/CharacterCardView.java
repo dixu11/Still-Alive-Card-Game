@@ -13,18 +13,22 @@ public class CharacterCardView implements Clickable {
     public static final int CARD_HEIGHT = 150;
 
     private CharacterCardData card;
+    private Color background;
 
     public CharacterCardView(CharacterCardData card) {
         this.card = card;
+        unselect();
     }
 
     public void render(Graphics g, Rectangle bounds) {
-        g.setColor(Color.GRAY.brighter());
-        g.drawRect(bounds.x, bounds.y, bounds.width ,bounds.height);
+        g.setColor(background);
+        g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        g.setColor(Color.BLACK);
+        g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
         printAsVerses(prepareTextLines(), g, bounds.x, bounds.y);
     }
 
-    private List<String> prepareTextLines(){
+    private List<String> prepareTextLines() {
         List<String> lines = new ArrayList<>();
         lines.add(card.getName());
         lines.add("Attack: " + card.getAttack());
@@ -44,5 +48,15 @@ public class CharacterCardView implements Clickable {
     @Override
     public void reactToClick(int x, int y) {
         System.out.println("card clicked " + card.getName());
+    }
+
+    public void unselect() {
+        System.out.println("un");
+        background = Color.GRAY;
+    }
+
+    public void select() {
+        background = Color.CYAN;
+        System.out.println("sel!");
     }
 }
